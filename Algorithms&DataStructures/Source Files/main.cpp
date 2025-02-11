@@ -6,6 +6,7 @@
 //
 #include "header.h"
 #include "firstlaboratory.hpp"
+#include "secondlaboratory.hpp"
 
 
 int main(int argc, const char * argv[])
@@ -25,6 +26,7 @@ int main(int argc, const char * argv[])
         switch (menu)
         {
             case '1': FirstLaboratoryMenu(); break;
+            case '2': SecondLaboratoryMenu(); break;
         }
     }
     
