@@ -4,24 +4,26 @@
 //
 //  Created by Максим Гоглов on 04.02.2025.
 //
-#include "header.h"
+
 #include "firstlaboratory.hpp"
 #include "secondlaboratory.hpp"
 
+#include <iostream>
 
-int main(int argc, const char * argv[])
+using namespace std;
+
+
+void MainMenu()
 {
-    setlocale(LC_ALL, "Russian");
     char menu = 'n';
-    while (menu != 'e' || menu != 'E')
+    while (menu != 'e')
     {
-        system("clear");
         cout << "Дисциплина: Алгоритмы и структуры данных" << endl;
         cout << "Разработчик: студент Гоглов М. А.\n" << endl;
         cout << "1) Лабораторная работа №1" << endl;
+        cout << "2) Лабораторная работа №2" << endl;
         cout << "E) Выход из программы" << endl;
         cin >> menu;
-        system("clear");
         cout << endl << endl;
         switch (menu)
         {
@@ -29,6 +31,13 @@ int main(int argc, const char * argv[])
             case '2': SecondLaboratoryMenu(); break;
         }
     }
-    
+}
+
+
+int main(int argc, const char * argv[])
+{
+    setlocale(LC_ALL, "Russian");
+    MainMenu();
     return 0;
 }
+

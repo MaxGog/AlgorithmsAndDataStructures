@@ -8,9 +8,14 @@
 #ifndef firstlaboratory_hpp
 #define firstlaboratory_hpp
 
-#include "header.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 void FirstLaboratoryMenu();
+
 void ViewArray(int array[], int count);
 void GetArray(int* array[], int count);
 
