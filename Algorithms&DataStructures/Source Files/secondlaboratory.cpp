@@ -5,10 +5,7 @@
 //  Created by Максим Гоглов on 06.02.2025.
 //
 
-#include "secondlaboratory.hpp"
-
-#include <iostream>
-using namespace std;
+#include "Header.h"
 
 struct Node
 {
@@ -478,8 +475,8 @@ void SecondLaboratoryMenu()
         list.insertAtBeginning(54);
         list.insertAtBeginning(38);
         list.insertAtBeginning(92);
-
-
+        
+        
         //list.insertAtPosition(11, 2);
         //list.insertAtPosition(12, 2);
         //list.insertAtPosition(13, 2);
@@ -494,9 +491,15 @@ void SecondLaboratoryMenu()
         cout << "4) Склеить два списка." << endl;
         cout << "5) Удалить n-ый элемент из списка." << endl;
         cout << "6) Добавить элемент на n-ую позицию из списка." << endl;
-        cout << "9) Удалить каждый второй элемент списка." << endl;
-        cout << "A) Удалить каждый третий элемент списка." << endl;
-        cout << "C) Очистить список." << endl;
+        cout << "7) Удалить каждый второй элемент списка." << endl;
+        cout << "8) Удалить каждый третий элемент списка." << endl;
+        cout << "9) Очистить список." << endl << endl;
+        cout << "A) 1-е инд. задание." << endl;
+        cout << "B) 2-е инд. задание." << endl;
+        cout << "C) 3-е инд. задание." << endl;
+        cout << "D) 4-е инд. задание." << endl;
+        cout << "F) 5-е инд. задание." << endl;
+        cout << "J) 6-е инд. задание." << endl;
         cin >> menu;
         system("clear");
         cout << endl << endl;
@@ -640,7 +643,7 @@ void SecondLaboratoryMenu()
             cout << "\nДобавлен элемент на n позицию: ";
             list.display();
         }
-        else if (menu == '9')
+        else if (menu == '7')
         {
             cout << "9) Удалить каждый второй элемент списка." << endl;
             
@@ -658,7 +661,7 @@ void SecondLaboratoryMenu()
             cout << "\nУдалён каждый 2: ";
             list.display();
         }
-        else if (menu == 'a')
+        else if (menu == '8')
         {
             cout << "10) Удалить каждый третий элемент списка." << endl;
             
@@ -679,7 +682,7 @@ void SecondLaboratoryMenu()
             cout << "\nУдалён каждый 3: ";
             list.display();
         }
-        else if (menu == 'c')
+        else if (menu == '9')
         {
             cout << "c) Очистить список." << endl;
             
@@ -697,241 +700,14 @@ void SecondLaboratoryMenu()
             cout << "\nОчищен: ";
             list.display();
         }
-        
-        
+        else if (menu == 'a') { FirstIndividualSecondLab(); }
+        else if (menu == 'b') { SecondIndividualSecondLab(); }
+        else if (menu == 'c') { ThirdIndividualSecondLab(); }
+        else if (menu == 'd') { FourthIndividualSecondLab(); }
+        else if (menu == 'f') { FivethIndividualSecondLab(); }
+        else if (menu == 'j') { SixthIndividualSecondLab(); }
+            
+            
         cout << endl << endl;
     }
 }
-
-
-
-
-
-
-        /*struct Node
-        {
-            int data;
-            Node* nextNode;
-            Node* prevNode;
-            Node(int value = 0, Node* ptr = nullptr): data(value), nextNode(ptr) {};
-        };
-
-        void ViewList(Node* start)
-        {
-            cout << "ID" << "\t\t" << "DATA" << endl;
-            int count = 0;
-            for (Node* current = start; current != nullptr; current = current->nextNode, count++)
-            {
-                cout << count << "\t\t" << current->data << endl;
-            }
-        }
-
-        void ClearList(Node* start)
-        {
-            while(start != nullptr)
-            {
-                Node* temp = start;
-                start = start->nextNode;
-                delete temp;
-            }
-        }
-
-        void MoveNode(Node** start, int value, int n)
-        {
-            Node* cur = *start;
-            Node* pre = nullptr;
-            
-            while (cur != nullptr && cur->data != value)
-            {
-                pre = cur;
-                cur = cur->nextNode;
-            }
-            
-            if (cur == nullptr) { return; }
-            
-            if (pre != nullptr) { pre->nextNode = cur->nextNode; }
-            else { *start = cur->nextNode; }
-            
-            Node* insertPos = cur;
-            
-            for (int i = 0; i < n && insertPos->nextNode != nullptr; i++) { insertPos = insertPos->nextNode; }
-            
-            cur->nextNode = insertPos->nextNode;
-            insertPos->nextNode = cur;
-        }
-
-        /*void CreateCopyList(Node* start, Node* startCopy)
-        {
-            for (Node* current = start; current != nullptr; current = current->nextNode, startCopy = startCopy->nextNode)
-            {
-                startCopy->data = current->data;
-            }
-        } //
-
-        void InsertAtList(Node* start, int value, int n)
-        {
-            if (n <= 0) { cout << "Позиция не может быть 0 или отрицательной."; return; }
-            else if (n == 1)
-            {
-                /*int tmp = *start->nextNode;
-                for (Node* current = start; current != nullptr; current = current->nextNode)
-                {
-                    int tmp = current->data;
-                } //
-                
-                
-                Node* newNode = new Node(value);
-                newNode = newNode->nextNode;
-                newNode = start;
-                start = newNode;
-            }
-            else
-            {
-                
-            }
-        }
-
-
-        void FirstTaskSecondLab()
-        {
-            cout << "1) Передвижения элемента на n позиций." << endl << endl;
-            Node* list = new Node{ 1, new Node{2, new Node{3, new Node{4, new Node{5, nullptr}}}} };
-
-            cout << "Исходный список: " << endl;
-            ViewList(list);
-            
-            cout << endl << endl;
-
-            int value, n;
-            cout << "Введите значение элемента для перемещения: ";
-            cin >> value;
-            cout << "Введите количество позиций для перемещения: ";
-            cin >> n;
-
-
-            MoveNode(&list, value, n);
-            cout << "После перемещения: " << endl;
-            ViewList(list);
-
-            ClearList(list);
-        }
-
-        void SecondTaskSecondLab()
-        {
-            cout << "2) Создать копию списка" << endl;
-            Node* list = new Node{ 1, new Node{2, new Node{3, new Node{4, new Node{5, nullptr}}}}};
-            
-            cout << "Исходный список: " << endl;
-            ViewList(list);
-            
-            Node* newList;
-            
-            //CreateCopyList(list, newList);
-            
-            cout << "Копия списка:" << endl;
-            //ViewList(newList);
-            
-            //ClearList(list);
-            //ClearList(newList);
-        }
-
-        void ThirdTaskSecondLab()
-        {
-            cout << "3) Добавить элемент в начало списка." << endl << endl;
-            Node* list = new Node{ 1, new Node{2, new Node{3, new Node{4, new Node{5, nullptr}}}} };
-
-            cout << "Исходный список: " << endl;
-            ViewList(list);
-            
-            cout << endl << endl;
-
-            int value;
-            cout << "Введите значение элемента: ";
-            cin >> value;
-            
-            //InsertAtList(list, value, 1);
-            
-            Node* newNode = list;
-            list->data = value;
-            list = list->nextNode;
-            list = newNode;
-
-
-            cout << "После вставки: " << endl;
-            ViewList(list);
-
-            ClearList(list);
-            //ClearList(newNode);
-        }
-
-        void FourthTaskSecondLab()
-        {
-            cout << "3) Склеить два списка." << endl << endl;
-            Node* list = new Node{ 1, new Node{2, new Node{3, new Node{4, new Node{5, nullptr}}}} };
-
-            cout << "Исходный список: " << endl;
-            ViewList(list);
-            
-            cout << endl;
-            
-            Node* secondList = new Node{ 1, new Node{2, new Node{3, new Node{4, new Node{5, nullptr}}}} };
-
-            cout << "Второй список: " << endl;
-            ViewList(secondList);
-            
-            cout << endl << endl;
-            
-            while (list != nullptr)
-            {
-                list = list->nextNode;
-            }
-            
-            list = new Node(secondList->data, secondList->nextNode);
-            
-            cout << "Склееный список:" << endl;
-            ViewList(list);
-            
-            ClearList(list);
-            ClearList(secondList);
-        }
-
-        void SecondLaboratoryMenu()
-        {
-            char menu = 'n';
-            while (menu != 'e')
-            {
-                system("clear");
-                cout << "Лабораторная работа №2\nОдносвязные списки" << endl;
-                cout << "1) Передвижения элемента на n позиций." << endl;
-                cout << "2) Создать копию списка. (НЕ СДЕЛАНО)" << endl;
-                cout << "3) Добавить элемент в начало списка." << endl;
-                cout << "4) Склеить два списка." << endl;
-                cout << "5) Удалить n-ый элемент из списка." << endl;
-                cout << "6) Вставить элемент после n-го элемента списка." << endl;
-                cout << "7) Создать список содержащий элементы общие для двух списков." << endl;
-                cout << "8) Упорядочить элементы в списке по возрастанию." << endl;
-                cout << "9) Удалить каждый второй элемент списка." << endl;
-                cout << "A) Удалить каждый третий элемент списка." << endl;
-                cout << "B) Упорядочить элементы списка по убыванию." << endl;
-                cout << "C) Очистить список." << endl;
-                cin >> menu;
-                system("clear");
-                cout << endl << endl;
-                switch (menu)
-                {
-                    case '1': FirstTaskSecondLab(); break;
-                    case '2': /*SecondTaskSecondLab(); // break;
-                    case '3': ThirdTaskSecondLab(); break;
-                    case '4': FourthTaskSecondLab(); break;
-                    /*case '5': FivethTaskSecondLab(); break;
-                    case '6': SixthTaskSecondLab(); break;
-                    case '7': SeventhTaskSecondLab(); break;
-                    case '8': EigthTaskSecondLab(); break;
-                    case '9': NinethTaskSecondLab(); break;
-                    case 'a': TenthTaskSecondLab(); break;
-                    case 'b': EleventhTaskSecondLab(); break;
-                    case 'c': TwelvethTaskSecondLab(); break; //
-                }
-                cout << endl << endl;
-            }
-        }*/

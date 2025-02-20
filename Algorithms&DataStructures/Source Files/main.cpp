@@ -5,13 +5,7 @@
 //  Created by Максим Гоглов on 04.02.2025.
 //
 
-#include "firstlaboratory.hpp"
-#include "secondlaboratory.hpp"
-
-#include <iostream>
-
-using namespace std;
-
+#include "Header.h"
 
 void MainMenu()
 {
