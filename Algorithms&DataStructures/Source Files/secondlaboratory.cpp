@@ -5,7 +5,7 @@
 //  Created by Максим Гоглов on 06.02.2025.
 //
 
-#include "Header.h"
+#include "secondlaboratory.h"
 
 struct Node
 {

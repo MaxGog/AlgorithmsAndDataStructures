@@ -1,12 +1,12 @@
 //
-//  Header.h
+//  secondlaboratory.h
 //  Algorithms&DataStructures
 //
-//  Created by Максим Гоглов on 20.02.2025.
+//  Created by Максим Гоглов on 03.03.2025.
 //
 
-#ifndef Header_h
-#define Header_h
+#ifndef secondlaboratory_h
+#define secondlaboratory_h
 
 #include <stdio.h>
 #include <iostream>
@@ -40,23 +40,6 @@ struct Node;
 struct CNode;
 
 
-void ViewArray(int array[], int count);
-void GetArray(int* array[], int count);
-
-void FirstLaboratoryMenu();
-
-void FirstTaskFirstLab();
-void SecondTaskFirstLab();
-void ThirdTaskFirstLab();
-void FourTaskFirstLab();
-void FiveTaskFirstLab();
-void SixTaskFirstLab();
-void SevenTaskFirstLab();
-void EightTaskFirstLab();
-void NineTaskFirstLab();
-void TenTaskFirstLab();
-void ElevenTaskFirstLab();
-void TwelveTaskFirstLab();
 
 void SecondLaboratoryMenu();
 
@@ -67,4 +50,5 @@ void FourthIndividualSecondLab();
 void FivethIndividualSecondLab();
 void SixthIndividualSecondLab();
 
-#endif /* Header_h */
+
+#endif /* secondlaboratory_h */

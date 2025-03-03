@@ -5,7 +5,7 @@
 //  Created by Максим Гоглов on 04.02.2025.
 //
 
-#include "Header.h"
+#include "firstlaboratory.h"
 
 void ViewArray(int array[], int count)
 {
