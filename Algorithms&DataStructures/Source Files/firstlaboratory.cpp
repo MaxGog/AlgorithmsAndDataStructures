@@ -440,10 +440,10 @@ void TwelveTaskFirstLab()
 void FirstLaboratoryMenu()
 {
     char menu = 'n';
-    while (menu != 'e' || menu != 'E')
+    while (menu != '0')
     {
         system("clear");
-        cout << "Лабораторная работа №1\nОбработка массива" << endl;
+        cout << "\nЛабораторная работа №1" << endl;
         cout << "1) Поменять местам первый и последний элементы стека" << endl;
         cout << "2) Развернуть стек, т.е. сделать \"дно\" стека вершиной, а вершину - \"дном\"" << endl;
         cout << "3) Удалить элемент, находящийся в середине стека" << endl;
@@ -456,7 +456,8 @@ void FirstLaboratoryMenu()
         cout << "Q) Удалить все элементы, равные последнему" << endl;
         cout << "A) Удалить максимальный элемент" << endl;
         cout << "Z) Найти минимальный элемент и вставит на его место 0" << endl;
-        cout << "E) Выход в главное меню" << endl;
+        cout << "0) Выход в главное меню" << endl;
+        cout << "Выберите пункт меню: ";
         cin >> menu;
         system("clear");
         cout << endl << endl;

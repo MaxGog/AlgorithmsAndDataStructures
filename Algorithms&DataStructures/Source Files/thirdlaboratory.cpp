@@ -8,19 +8,22 @@
 #include "thirdlaboratory.h"
 
 // Структура узла дерева
-struct NodeThirdLab {
+struct NodeThirdLab
+{
     double data;
     NodeThirdLab* left;
     NodeThirdLab* right;
 };
 
 // Класс бинарного дерева
-class BinaryTree {
+class BinaryTree
+{
 private:
     NodeThirdLab* root;
 
     // Рекурсивная копия поддерева
-    NodeThirdLab* copyTree(NodeThirdLab* node) {
+    NodeThirdLab* copyTree(NodeThirdLab* node)
+    {
         if (node == nullptr) return nullptr;
         NodeThirdLab* newNode = new NodeThirdLab();
         newNode->data = node->data;
@@ -30,7 +33,8 @@ private:
     }
 
     // Рекурсивная проверка равенства деревьев
-    bool equalTrees(NodeThirdLab* t1, NodeThirdLab* t2) {
+    bool equalTrees(NodeThirdLab* t1, NodeThirdLab* t2)
+    {
         if (t1 == nullptr && t2 == nullptr) return true;
         if (t1 == nullptr || t2 == nullptr) return false;
         return (t1->data == t2->data &&
@@ -39,7 +43,8 @@ private:
     }
 
     // Рекурсивный подсчет количества вхождений значения
-    int countOccurrences(NodeThirdLab* node, double value) {
+    int countOccurrences(NodeThirdLab* node, double value)
+    {
         if (node == nullptr) return 0;
         int count = (node->data == value ? 1 : 0);
         return count + countOccurrences(node->left, value) +
@@ -49,16 +54,20 @@ private:
 public:
     BinaryTree() : root(nullptr) {}
 
-    ~BinaryTree() {
-            if (root != nullptr) {
-                deleteTree(root);
-            }
+    ~BinaryTree()
+    {
+        if (root != nullptr)
+        {
+            deleteTree(root);
         }
+    }
 
     // 1. Получение значения из левого листа и подсчет вхождений
-    bool getLeftLeafValue(double& E) {
+    bool getLeftLeafValue(double& E)
+    {
         NodeThirdLab* leftmost = root;
-        while (leftmost && (leftmost->left || leftmost->right)) {
+        while (leftmost && (leftmost->left || leftmost->right))
+        {
             if (leftmost->left) leftmost = leftmost->left;
             else leftmost = leftmost->right;
         }
@@ -67,19 +76,22 @@ public:
         return true;
     }
 
-    int countValueOccurrences(double value) {
+    int countValueOccurrences(double value)
+    {
         return countOccurrences(root, value);
     }
 
     // 2. Среднее арифметическое и добавление значения
-    double calculateAverage() {
+    double calculateAverage()
+    {
         if (!root) return 0.0;
         double sum = 0.0;
         int count = 0;
         queue<NodeThirdLab*> q;
         q.push(root);
         
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             NodeThirdLab* node = q.front();
             q.pop();
             sum += node->data;
@@ -91,13 +103,15 @@ public:
         return sum / count;
     }
 
-    void addNode(double value) {
+    void addNode(double value)
+    {
         NodeThirdLab* newNode = new NodeThirdLab();
         newNode->data = value;
         newNode->left = nullptr;
         newNode->right = nullptr;
 
-        if (!root) {
+        if (!root)
+        {
             root = newNode;
             return;
         }
@@ -105,14 +119,18 @@ public:
         queue<NodeThirdLab*> q;
         q.push(root);
 
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             NodeThirdLab* current = q.front();
             q.pop();
 
-            if (!current->left) {
+            if (!current->left)
+            {
                 current->left = newNode;
                 break;
-            } else if (!current->right) {
+            }
+            else if (!current->right)
+            {
                 current->right = newNode;
                 break;
             }
@@ -123,16 +141,19 @@ public:
     }
 
     // 3. Создание дерева из отрицательных значений
-    BinaryTree* createNegativeTree() {
+    BinaryTree* createNegativeTree()
+    {
         BinaryTree* newTree = new BinaryTree();
         queue<NodeThirdLab*> q;
         q.push(root);
 
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             NodeThirdLab* node = q.front();
             q.pop();
 
-            if (node->data < 0) {
+            if (node->data < 0)
+            {
                 newTree->addNode(node->data);
             }
 
@@ -143,21 +164,25 @@ public:
     }
 
     // 4. Поиск минимума и печать листьев
-    double findMin() {
+    double findMin()
+    {
         if (!root) return 0.0;
         double minVal = root->data;
         queue<NodeThirdLab*> q;
         q.push(root);
 
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             NodeThirdLab* node = q.front();
             q.pop();
 
-            if (node->left) {
+            if (node->left)
+            {
                 q.push(node->left);
                 if (node->left->data < minVal) minVal = node->left->data;
             }
-            if (node->right) {
+            if (node->right)
+            {
                 q.push(node->right);
                 if (node->right->data < minVal) minVal = node->right->data;
             }
@@ -165,7 +190,8 @@ public:
         return minVal;
     }
 
-    void printLeafNodes() {
+    void printLeafNodes()
+    {
         if (!root) return;
         queue<NodeThirdLab*> q;
         q.push(root);
@@ -175,7 +201,8 @@ public:
             NodeThirdLab* node = q.front();
             q.pop();
 
-            if (!node->left && !node->right) {
+            if (!node->left && !node->right)
+            {
                 cout << node->data << " ";
             }
 
@@ -186,11 +213,13 @@ public:
     }
 
     // 5. Проверка существования значения и добавление
-    bool containsValue(double value) {
+    bool containsValue(double value)
+    {
         queue<NodeThirdLab*> q;
         q.push(root);
 
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             NodeThirdLab* node = q.front();
             q.pop();
 
@@ -202,19 +231,23 @@ public:
         return false;
     }
 
-    void insertValue(double value) {
-        if (!containsValue(value)) {
+    void insertValue(double value)
+    {
+        if (!containsValue(value))
+        {
             addNode(value);
         }
     }
 
     // 6. Поиск длины пути и максимальной глубины
-    int findPathLength(double E) {
+    int findPathLength(double E)
+    {
         if (!root) return -1;
         queue<pair<NodeThirdLab*, int>> q;
         q.push({root, 0});
 
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             auto nodePair = q.front();
             NodeThirdLab* node = nodePair.first;
             int depth = nodePair.second;
@@ -228,13 +261,15 @@ public:
         return -1;
     }
 
-    int getMaxDepth() {
+    int getMaxDepth()
+    {
         if (!root) return 0;
         queue<pair<NodeThirdLab*, int>> q;
         q.push({root, 1});
         int maxDepth = 0;
 
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             auto nodePair = q.front();
             NodeThirdLab* node = nodePair.first;
             int depth = nodePair.second;
@@ -248,19 +283,22 @@ public:
     }
 
     // 7. Копирование дерева
-    BinaryTree* copy() {
+    BinaryTree* copy()
+    {
         BinaryTree* newTree = new BinaryTree();
         newTree->root = copyTree(root);
         return newTree;
     }
 
     // 8. Проверка равенства деревьев
-    bool equals(BinaryTree& other) {
+    bool equals(BinaryTree& other)
+    {
         return equalTrees(root, other.root);
     }
 
     // 9. Определение типа узла и печать атрибутов
-    void printNodeAttributes() {
+    void printNodeAttributes()
+    {
         if (!root) return;
         queue<NodeThirdLab*> q;
         q.push(root);
@@ -268,12 +306,14 @@ public:
         
         // Используем std::string вместо char для русских букв
         string type;
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             NodeThirdLab* node = q.front();
             q.pop();
             
             // Присваиваем строку вместо символа
-            if (node->left || node->right) {
+            if (node->left || node->right)
+            {
                 type = "П"; // промежуточный узел
                 if (node == root) type = "К"; // корень
             } else {
@@ -288,7 +328,8 @@ public:
     }
 
     // 10. Поиск минимума листьев и добавление значения
-    double findMinLeafValue() {
+    double findMinLeafValue()
+    {
         if (!root) return 0.0;
         queue<NodeThirdLab*> q;
         q.push(root);
@@ -298,7 +339,8 @@ public:
             NodeThirdLab* node = q.front();
             q.pop();
 
-            if (!node->left && !node->right) {
+            if (!node->left && !node->right)
+            {
                 minVal = min(minVal, node->data);
             }
 
@@ -309,7 +351,8 @@ public:
     }
 
     // 11. Подсчет суммы значений при наличии элемента
-    double sumValues(double value) {
+    double sumValues(double value)
+    {
         if (!containsValue(value)) return 0.0;
         
         double sum = 0.0;
@@ -317,11 +360,13 @@ public:
         queue<NodeThirdLab*> q;
         q.push(root);
 
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             NodeThirdLab* node = q.front();
             q.pop();
 
-            if (node->data == value) {
+            if (node->data == value)
+            {
                 sum += node->data;
             }
 
@@ -332,12 +377,14 @@ public:
     }
 
     // 12. Печать уникальных и часто встречающихся значений
-    void printUniqueAndMostFrequent() {
+    void printUniqueAndMostFrequent()
+    {
         map<double, int> frequency;
         queue<NodeThirdLab*> q;
         q.push(root);
 
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             NodeThirdLab* node = q.front();
             q.pop();
 
@@ -352,11 +399,15 @@ public:
         double mostFrequent;
 
         cout << "Уникальные значения: ";
-        for (auto& pair : frequency) {
-            if (pair.second == 1) {
+        for (auto& pair : frequency)
+        {
+            if (pair.second == 1)
+            {
                 cout << pair.first << " ";
                 foundUnique = true;
-            } else if (pair.second > maxFreq) {
+            }
+            else if (pair.second > maxFreq)
+            {
                 maxFreq = pair.second;
                 mostFrequent = pair.first;
             }
@@ -365,14 +416,18 @@ public:
         cout << endl;
 
         cout << "Наиболее частое значение: ";
-        if (maxFreq > 0) {
+        if (maxFreq > 0)
+        {
             cout << mostFrequent << " (" << maxFreq << " раз)" << endl;
-        } else {
+        }
+        else
+        {
             cout << "нет" << endl;
         }
     }
     
-    void deleteTree(NodeThirdLab* node) {
+    void deleteTree(NodeThirdLab* node)
+    {
         if (node == nullptr) return;
         deleteTree(node->left);
         deleteTree(node->right);
@@ -397,25 +452,27 @@ void ThirdLaboratoryMenu()
     tree.addNode(2.0); // дубликат для тестирования
     
     int choice;
-    do {
-        cout << "\nМеню третьей лабораторной работы:" << endl;
-        cout << "1. Получить значение из левого листа и подсчитать вхождения" << endl;
-        cout << "2. Вычислить среднее арифметическое и добавить значение" << endl;
-        cout << "3. Создать дерево из отрицательных значений" << endl;
-        cout << "4. Найти минимум и вывести листья" << endl;
-        cout << "5. Проверить наличие значения и добавить его" << endl;
-        cout << "6. Найти длину пути и максимальную глубину" << endl;
-        cout << "7. Скопировать дерево" << endl;
-        cout << "8. Проверить равенство деревьев" << endl;
-        cout << "9. Вывести атрибуты узлов" << endl;
-        cout << "10. Найти минимум листьев и добавить значение" << endl;
-        cout << "11. Посчитать сумму значений при наличии элемента" << endl;
-        cout << "12. Вывести уникальные и часто встречающиеся значения" << endl;
-        cout << "0. Выход" << endl;
+    do
+    {
+        cout << "\nЛабораторная работа №3" << endl;
+        cout << "1) Получить значение из левого листа и подсчитать вхождения" << endl;
+        cout << "2) Вычислить среднее арифметическое и добавить значение" << endl;
+        cout << "3) Создать дерево из отрицательных значений" << endl;
+        cout << "4) Найти минимум и вывести листья" << endl;
+        cout << "5) Проверить наличие значения и добавить его" << endl;
+        cout << "6) Найти длину пути и максимальную глубину" << endl;
+        cout << "7) Скопировать дерево" << endl;
+        cout << "8) Проверить равенство деревьев" << endl;
+        cout << "9) Вывести атрибуты узлов" << endl;
+        cout << "10) Найти минимум листьев и добавить значение" << endl;
+        cout << "11) Посчитать сумму значений при наличии элемента" << endl;
+        cout << "12) Вывести уникальные и часто встречающиеся значения" << endl;
+        cout << "0) Главное меню" << endl;
         cout << "Выберите пункт меню: ";
         cin >> choice;
 
-        switch (choice) {
+        switch (choice)
+        {
             case 1: {
                 double E;
                 if (tree.getLeftLeafValue(E)) {

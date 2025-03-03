@@ -467,7 +467,7 @@ public:
 void SecondLaboratoryMenu()
 {
     char menu = 'n';
-    while (menu != 'e')
+    while (menu != '0')
     {
         
         Linkedlist list, list2;
@@ -483,8 +483,7 @@ void SecondLaboratoryMenu()
         //list.insertAtPosition(14, 2);
         
         
-        system("clear");
-        cout << "Лабораторная работа №2\nОдносвязные списки" << endl;
+        cout << "\nЛабораторная работа №2" << endl;
         cout << "1) Передвижения элемента на n позиций." << endl;
         cout << "2) Создать копию списка." << endl;
         cout << "3) Добавить элемент в начало списка." << endl;
@@ -500,6 +499,8 @@ void SecondLaboratoryMenu()
         cout << "D) 19 задача | инд. задание." << endl;
         cout << "F) 15 задача | инд. задание." << endl;
         cout << "J) 16 задача | инд. задание." << endl;
+        cout << "0) Главное меню" << endl;
+        cout << "Выберите пункт меню: ";
         cin >> menu;
         system("clear");
         cout << endl << endl;
