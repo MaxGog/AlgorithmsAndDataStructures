@@ -25,6 +25,7 @@ void MainMenu()
         {
             case '1': FirstLaboratoryMenu(); break;
             case '2': SecondLaboratoryMenu(); break;
+            case '3': ThirdLaboratoryMenu(); break;
         }
     }
 }

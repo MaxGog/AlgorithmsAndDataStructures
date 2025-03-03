@@ -8,5 +8,11 @@
 #ifndef thirdlaboratory_h
 #define thirdlaboratory_h
 
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+void ThirdLaboratoryMenu();
 
 #endif /* thirdlaboratory_h */
