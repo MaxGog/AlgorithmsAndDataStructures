@@ -14,39 +14,38 @@ def insert(current, key):
     return current
 
 def print_tree(current):
-    """Печатает дерево в порядке возрастания"""
+    #Печатает дерево в порядке возрастания
     if current:
         print_tree(current.left)
         print(current.val, end=" ")
         print_tree(current.right)
 
 def find_min(current):
-    """Находит минимальное значение в дереве"""
+    #Находит минимальное значение в дереве
     while current.left:
         current = current.left
     return current.val
 
 def find_max(current):
-    """Находит максимальное значение в дереве"""
+    #Находит максимальное значение в дереве
     while current.right:
         current = current.right
     return current.val
 
 def print_leaves(current):
-    """Выводит значения всех листьев дерева"""
+    #Выводит значения всех листьев дерева
     if current:
         if not current.left and not current.right:
             print(current.val, end=" ")
         print_leaves(current.left)
         print_leaves(current.right)
 
-# Ввод дерева
 def create_tree_from_input():
     root = None
-    print("Введите числа для дерева (вещественные). Для завершения введите 'end'.")
+    print("Введите числа для дерева (вещественные). Для завершения введите 'e'.")
     while True:
         user_input = input("Введите число: ")
-        if user_input.lower() == "end":
+        if user_input.lower() == "e":
             break
         try:
             values = map(float, user_input.split())

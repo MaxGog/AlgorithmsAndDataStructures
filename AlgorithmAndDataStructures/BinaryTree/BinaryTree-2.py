@@ -1,6 +1,6 @@
 class Node:
     def __init__(self, key):
-        self.val = float(key)  # Используем вещественные числа
+        self.val = float(key)
         self.left = None
         self.right = None    
 
@@ -22,7 +22,7 @@ def print_tree(current):
         print_tree(current.right)
 
 def sum_and_count_nodes(current):
-    """Возвращает кортеж (сумма всех значений, количество узлов)"""
+    #Возвращает кортеж (сумма всех значений, количество узлов)
     if current is None:
         return (0, 0)
     
@@ -35,26 +35,25 @@ def sum_and_count_nodes(current):
     return (total_sum, total_count)
 
 def compute_average(current):
-    """Вычисляет среднее арифметическое значений в дереве"""
+    #Вычисляет среднее арифметическое значений в дереве
     total_sum, total_count = sum_and_count_nodes(current)
     if total_count == 0:
         return None
     return total_sum / total_count
 
 def add_average_to_tree(current):
-    """Добавляет в дерево вершину со значением среднего арифметического"""
+    #Добавляет в дерево вершину со значением среднего арифметического
     average = compute_average(current)
     if average is not None:
         return insert(current, average)
-    return current  # Если дерево пустое, ничего не делаем
+    return current
 
-# Ввод дерева вручную
 def create_tree_from_input():
     root = None
-    print("Введите значения для дерева (вещественные числа). Для завершения ввода введите 'end'.")
+    print("Введите значения для дерева (вещественные числа). Для завершения ввода введите 'e'.")
     while True:
         user_input = input("Введите число: ")
-        if user_input.lower() == "end":
+        if user_input.lower() == "e":
             break
         try:
             values = list(map(float, user_input.split()))

@@ -101,7 +101,7 @@ public:
         }
         Node2* current = head;
         do {
-            cout << current->data["first"] << " : " << current->data["second"] << "      ";
+            cout << current->data["first"] << " - " << current->data["second"] << "      ";
             current = current->next;
         } while (current != head);
         cout << "\n";
@@ -172,12 +172,12 @@ void FirstIndividualSecondLab() {
 
     // Добавляем студентов
     for (int i = 1; i <= students_count; i++) {
-        students.append("студент_" + to_string(i), "0");
+        students.append("студент: " + to_string(i), "0");
     }
 
     // Добавляем билеты
     for (int i = 1; i <= tickets_count; i++) {
-        bilets.append("билет_" + to_string(i));
+        bilets.append("билет: " + to_string(i));
     }
 
     CList list2;

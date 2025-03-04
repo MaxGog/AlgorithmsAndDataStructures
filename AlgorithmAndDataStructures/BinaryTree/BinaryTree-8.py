@@ -5,7 +5,7 @@ class Node:
         self.right = None    
 
 def insert(current, key):
-    """Вставляет новый узел в дерево"""
+    #Вставляет новый узел в дерево
     if current is None:
         return Node(key)
     if key < current.val:
@@ -15,7 +15,7 @@ def insert(current, key):
     return current
 
 def equal_trees(t1, t2):
-    """Проверяет, равны ли два дерева"""
+    #Проверяет, равны ли два дерева
     if t1 is None and t2 is None:
         return True
     if t1 is None or t2 is None:
@@ -25,12 +25,12 @@ def equal_trees(t1, t2):
             equal_trees(t1.right, t2.right))
 
 def create_tree_from_input():
-    """Создает дерево из пользовательского ввода"""
+    #Создает дерево из пользовательского ввода
     root = None
-    print("Введите целые числа для дерева. Для завершения введите 'end'.")
+    print("Введите целые числа для дерева. Для завершения введите 'e'.")
     while True:
         user_input = input("Введите число: ")
-        if user_input.lower() == "end":
+        if user_input.lower() == "e":
             break
         try:
             values = map(int, user_input.split())

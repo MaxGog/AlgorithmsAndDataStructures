@@ -5,7 +5,7 @@ class Node:
         self.right = None    
 
 def insert(current, key):
-    """Вставляет новый узел в дерево"""
+    #Вставляет новый узел в дерево
     if current is None:
         return Node(key)
     if key < current.val:
@@ -15,7 +15,7 @@ def insert(current, key):
     return current
 
 def copy_tree(original):
-    """Создает копию бинарного дерева"""
+    #Создает копию бинарного дерева
     if original is None:
         return None
     new_node = Node(original.val)
@@ -24,7 +24,7 @@ def copy_tree(original):
     return new_node
 
 def print_tree(current):
-    """Выводит дерево в порядке возрастания"""
+    #Выводит дерево в порядке возрастания
     if current:
         print_tree(current.left)
         print(current.val, end=" ")
@@ -32,10 +32,10 @@ def print_tree(current):
 
 def create_tree_from_input():
     root = None
-    print("Введите целые числа для дерева. Для завершения введите 'end'.")
+    print("Введите целые числа для дерева. Для завершения введите 'e'.")
     while True:
         user_input = input("Введите число: ")
-        if user_input.lower() == "end":
+        if user_input.lower() == "e":
             break
         try:
             values = map(int, user_input.split())

@@ -1,6 +1,6 @@
 class Node:
     def __init__(self, key):
-        self.val = float(key)  # Используем вещественные числа
+        self.val = float(key)
         self.left = None
         self.right = None    
 
@@ -22,7 +22,7 @@ def print_tree(current):
         print_tree(current.right)
 
 def extract_negative_nodes(current, new_tree=None):
-    """Создает новое дерево из отрицательных значений"""
+    #Создает новое дерево из отрицательных значений
     if current is None:
         return new_tree
 
@@ -36,10 +36,10 @@ def extract_negative_nodes(current, new_tree=None):
 
 def create_tree_from_input():
     root = None
-    print("Введите значения для дерева (вещественные числа). Для завершения ввода введите 'end'.")
+    print("Введите значения для дерева (вещественные числа). Для завершения ввода введите 'e'.")
     while True:
         user_input = input("Введите число: ")
-        if user_input.lower() == "end":
+        if user_input.lower() == "e":
             break
         try:
             values = list(map(float, user_input.split()))

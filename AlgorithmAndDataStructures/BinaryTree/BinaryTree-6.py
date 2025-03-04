@@ -5,7 +5,7 @@ class Node:
         self.right = None    
 
 def insert(current, key):
-    """Вставляет новый узел в дерево"""
+    #Вставляет новый узел в дерево
     if current is None:
         return Node(key)
     if key < current.val:
@@ -15,9 +15,7 @@ def insert(current, key):
     return current
 
 def find_path_length(current, key, depth=0):
-    """Находит длину пути до элемента key (число ветвей).
-       Если элемент не найден, возвращает -1.
-    """
+    #Находит длину пути до элемента key (число ветвей). Если элемент не найден, возвращает -1.
     if current is None:
         return -1
     if key == current.val:
@@ -28,7 +26,7 @@ def find_path_length(current, key, depth=0):
         return find_path_length(current.right, key, depth + 1)
 
 def find_max_depth(current):
-    """Определяет максимальную глубину дерева (число ветвей в самом длинном пути)."""
+    #Определяет максимальную глубину дерева (число ветвей в самом длинном пути)."""
     if current is None:
         return -1
     left_depth = find_max_depth(current.left)
@@ -36,7 +34,7 @@ def find_max_depth(current):
     return max(left_depth, right_depth) + 1
 
 def print_tree(current):
-    """Выводит дерево в порядке возрастания"""
+    #Выводит дерево в порядке возрастания"""
     if current:
         print_tree(current.left)
         print(current.val, end=" ")
@@ -44,10 +42,10 @@ def print_tree(current):
 
 def create_tree_from_input():
     root = None
-    print("Введите целые числа для дерева. Для завершения введите 'end'.")
+    print("Введите целые числа для дерева. Для завершения введите 'e'.")
     while True:
         user_input = input("Введите число: ")
-        if user_input.lower() == "end":
+        if user_input.lower() == "e":
             break
         try:
             values = map(int, user_input.split())

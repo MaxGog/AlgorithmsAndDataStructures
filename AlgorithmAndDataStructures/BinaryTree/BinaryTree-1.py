@@ -9,7 +9,7 @@ def insert(current, key):
     if current is None:
         return Node(key)
     if current.val == key:
-        current.count += 1  # Если значение уже есть, увеличиваем его счетчик
+        current.count += 1
     elif current.val < key:
         current.right = insert(current.right, key)
     else:
@@ -28,7 +28,7 @@ def find_left(current):
         return None
     while current.left:
         current = current.left
-    return current  # Возвращаем самую левую вершину
+    return current
 
 def assign_left_leaf_value(current):
     left_leaf = find_left(current)
@@ -44,10 +44,10 @@ def count_occurrences(current, E):
 
 def create_tree_from_input():
     root = None
-    print("Введите значения для дерева. Для завершения ввода введите 'end'.")
+    print("Введите значения для дерева. Для завершения ввода введите 'e'.")
     while True:
         user_input = input("Введите число: ")
-        if user_input.lower() == "end":
+        if user_input.lower() == "e":
             break
         try:
             values = list(map(int, user_input.split()))
