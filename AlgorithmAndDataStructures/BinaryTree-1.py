@@ -1,0 +1,76 @@
+class Node:
+    def __init__(self, key):
+        self.val = key
+        self.count = 1  # Добавляем поле для подсчета повторений
+        self.left = None
+        self.right = None    
+
+def insert(current, key):
+    if current is None:
+        return Node(key)
+    if current.val == key:
+        current.count += 1  # Если значение уже есть, увеличиваем его счетчик
+    elif current.val < key:
+        current.right = insert(current.right, key)
+    else:
+        current.left = insert(current.left, key)
+    return current
+
+def print_tree(current):
+    if current:
+        print_tree(current.left)
+        print(f"{current.val}({current.count})", end=" ")  # Выводим значение + количество повторений
+        print_tree(current.right)
+
+def find_left(current):
+    if current is None:
+        print("Дерево не имеет вершин")
+        return None
+    while current.left:
+        current = current.left
+    return current  # Возвращаем самую левую вершину
+
+def assign_left_leaf_value(current):
+    left_leaf = find_left(current)
+    if left_leaf is not None:
+        return left_leaf.val
+    return None
+
+def count_occurrences(current, E):
+    if current is None:
+        return 0
+    count = current.count if current.val == E else 0
+    return count + count_occurrences(current.left, E) + count_occurrences(current.right, E)
+
+# Ввод дерева вручную
+def create_tree_from_input():
+    root = None
+    print("Введите значения для дерева. Для завершения ввода введите 'end'.")
+    while True:
+        user_input = input("Введите число: ")
+        if user_input.lower() == "end":
+            break
+        try:
+            values = list(map(int, user_input.split()))
+            for value in values:
+                root = insert(root, value)
+        except ValueError:
+            print("Неверный ввод, попробуйте снова.")
+    return root
+
+# Основная программа
+root = create_tree_from_input()
+
+# Печать дерева
+print("\nДерево (значение(количество повторений)):")
+print_tree(root)
+print("\n")
+
+# Присваиваем значение самому левому листу и выводим результат
+E = assign_left_leaf_value(root)
+print("Значение самого левого листа:", E)
+
+# Подсчет числа вхождений E в дерево
+if E is not None:
+    occurrences = count_occurrences(root, E)
+    print(f"Число вхождений {E} в дереве: {occurrences}")
