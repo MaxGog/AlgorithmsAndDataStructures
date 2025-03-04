@@ -30,7 +30,6 @@ def print_tree(current):
         print(current.val, end=" ")
         print_tree(current.right)
 
-# Ввод дерева
 def create_tree_from_input():
     root = None
     print("Введите целые числа для дерева. Для завершения введите 'end'.")
@@ -46,7 +45,6 @@ def create_tree_from_input():
             print("Ошибка ввода, попробуйте снова.")
     return root
 
-# Основная программа
 root = create_tree_from_input()
 
 if root:

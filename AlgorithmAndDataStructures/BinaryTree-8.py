@@ -40,14 +40,12 @@ def create_tree_from_input():
             print("Ошибка ввода, попробуйте снова.")
     return root
 
-# Ввод двух деревьев
 print("Создание первого дерева:")
 tree1 = create_tree_from_input()
 
 print("\nСоздание второго дерева:")
 tree2 = create_tree_from_input()
 
-# Проверка на равенство
 if equal_trees(tree1, tree2):
     print("\nДеревья равны.")
 else:

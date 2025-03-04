@@ -56,7 +56,6 @@ def create_tree_from_input():
             print("Ошибка ввода, попробуйте снова.")
     return root
 
-# Основная программа
 root = create_tree_from_input()
 
 if root:

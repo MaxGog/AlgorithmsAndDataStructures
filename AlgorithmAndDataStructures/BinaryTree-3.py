@@ -34,7 +34,6 @@ def extract_negative_nodes(current, new_tree=None):
     
     return new_tree
 
-# Ввод дерева вручную
 def create_tree_from_input():
     root = None
     print("Введите значения для дерева (вещественные числа). Для завершения ввода введите 'end'.")
@@ -50,19 +49,15 @@ def create_tree_from_input():
             print("Неверный ввод, попробуйте снова.")
     return root
 
-# Основная программа
 root = create_tree_from_input()
 
-# Печать дерева
 print("\nДерево:")
 print_tree(root)
 print("\n")
 
 
-# Создаем новое дерево из отрицательных значений
 negative_tree = extract_negative_nodes(root)
 
-# Выводим дерево, содержащее только отрицательные числа
 print("\nДерево из отрицательных чисел:")
 print_tree(negative_tree)
 print("\n")

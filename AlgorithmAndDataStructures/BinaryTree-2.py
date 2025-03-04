@@ -64,25 +64,20 @@ def create_tree_from_input():
             print("Неверный ввод, попробуйте снова.")
     return root
 
-# Основная программа
 root = create_tree_from_input()
 
-# Печать дерева
 print("\nДерево:")
 print_tree(root)
 print("\n")
 
-# Вычисляем среднее арифметическое
 average_value = compute_average(root)
 if average_value is not None:
     print(f"Среднее арифметическое всех вершин: {average_value:.4f}")
 else:
     print("Дерево пустое, среднее арифметическое невозможно вычислить.")
 
-# Добавляем среднее арифметическое в дерево
 root = add_average_to_tree(root)
 
-# Выводим обновленное дерево
 print("\nДерево после добавления среднего арифметического:")
 print_tree(root)
 print("\n")

@@ -19,7 +19,7 @@ def insert(current, key):
 def print_tree(current):
     if current:
         print_tree(current.left)
-        print(f"{current.val}({current.count})", end=" ")  # Выводим значение + количество повторений
+        print(f"{current.val}({current.count})", end=" ") 
         print_tree(current.right)
 
 def find_left(current):
@@ -42,7 +42,6 @@ def count_occurrences(current, E):
     count = current.count if current.val == E else 0
     return count + count_occurrences(current.left, E) + count_occurrences(current.right, E)
 
-# Ввод дерева вручную
 def create_tree_from_input():
     root = None
     print("Введите значения для дерева. Для завершения ввода введите 'end'.")
@@ -58,19 +57,16 @@ def create_tree_from_input():
             print("Неверный ввод, попробуйте снова.")
     return root
 
-# Основная программа
+
 root = create_tree_from_input()
 
-# Печать дерева
 print("\nДерево (значение(количество повторений)):")
 print_tree(root)
 print("\n")
 
-# Присваиваем значение самому левому листу и выводим результат
 E = assign_left_leaf_value(root)
 print("Значение самого левого листа:", E)
 
-# Подсчет числа вхождений E в дерево
 if E is not None:
     occurrences = count_occurrences(root, E)
     print(f"Число вхождений {E} в дереве: {occurrences}")
