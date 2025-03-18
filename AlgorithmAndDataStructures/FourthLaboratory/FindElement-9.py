@@ -17,7 +17,6 @@ def binary_search(arr, target):
     comparisons = 0
     start_time = time.time()
     
-    # Создаем отсортированную копию массива
     sorted_arr = sorted(arr)
     left, right = 0, len(sorted_arr) - 1
     
@@ -26,7 +25,6 @@ def binary_search(arr, target):
         mid = (left + right) // 2
         
         if sorted_arr[mid] == target:
-            # Находим исходную позицию в неотсортированном массиве
             for i in range(len(arr)):
                 if arr[i] == target:
                     end_time = time.time()

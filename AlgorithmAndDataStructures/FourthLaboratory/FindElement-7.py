@@ -33,9 +33,8 @@ def indexed_sequential_search(arr, target):
     indices = []
     elements = []
     
-    # Создаем индексы и группы элементов
     for i in range(0, n, group_size):
-        comparisons += 1  # Считаем сравнение при создании индекса
+        comparisons += 1
         if i + group_size <= n:
             elements.append(arr[i])
             indices.append(i)
@@ -43,40 +42,22 @@ def indexed_sequential_search(arr, target):
             elements.append(arr[i])
             indices.append(i)
     
-    # Поиск в индексах
     for i in range(len(elements)):
-        comparisons += 1  # Считаем сравнение при поиске в индексах
+        comparisons += 1
         if elements[i] >= target:
             start_idx = indices[i]
             end_idx = min(start_idx + group_size, n)
             for j in range(start_idx, end_idx):
-                comparisons += 1  # Считаем сравнение при поиске в группе
+                comparisons += 1
                 if arr[j] == target:
                     return arr[j], comparisons
             break
     
     return None, comparisons
 
-def get_array_from_input():
-    """Получение массива от пользователя с проверкой корректности ввода"""
-    try:
-        n = int(input("Введите количество элементов массива: "))
-        if n <= 0:
-            raise ValueError("Количество элементов должно быть положительным")
-            
-        print(f"\nВведите {n} чисел:")
-        arr = []
-        for i in range(n):
-            num = float(input(f"Элемент {i+1}: "))
-            arr.append(num)
-            
-        return arr
-    except ValueError as e:
-        print(f"\nОшибка: {str(e)}")
-        return None
 
 print("Задание №7: Найти элемент в упорядоченном массиве А и найти число сравнений помощью линейного, бинарного и индексно-последовательного поиска.")
-arr = get_array_from_input()
+arr = list(map(int, input("Введите элементы массива через пробел (массив должен быть упорядочен): ").split()))
     
 try:
     target = float(input("\nВведите искомое число: "))

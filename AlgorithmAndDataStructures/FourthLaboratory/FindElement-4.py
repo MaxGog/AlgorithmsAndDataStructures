@@ -1,5 +1,4 @@
 def linear_search(arr):
-    """Линейный поиск элементов с модулем больше 20 и меньше 50"""
     result = []
     for num in arr:
         if abs(num) > 20 and abs(num) < 50:
@@ -7,7 +6,6 @@ def linear_search(arr):
     return result
 
 def binary_search(arr):
-    """Бинарный поиск элементов с модулем больше 20 и меньше 50"""
     sorted_arr = sorted(arr)
     result = []
     
@@ -26,7 +24,6 @@ def binary_search(arr):
     return sorted(result)
 
 def indexed_sequential_search(arr):
-    """Индексно-последовательный поиск элементов с модулем больше 20 и меньше 50"""
     n = len(arr)
     group_size = 3
     indices = []

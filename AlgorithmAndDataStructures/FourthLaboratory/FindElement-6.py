@@ -51,27 +51,9 @@ def indexed_sequential_search(arr):
     
     return sorted(list(set(result)))
 
-def get_array_from_input():
-    """Получение массива от пользователя с проверкой корректности ввода"""
-    try:
-        n = int(input("Введите количество элементов массива: "))
-        if n <= 0:
-            raise ValueError("Количество элементов должно быть положительным")
-            
-        print(f"\nВведите {n} чисел:")
-        arr = []
-        for i in range(n):
-            num = float(input(f"Элемент {i+1}: "))
-            arr.append(num)
-            
-        return arr
-    except ValueError as e:
-        print(f"\nОшибка: {str(e)}")
-        return None
-
 
 print("Задание №6: Вывести на экран сообщение, каких чисел больше относительно 50 в упорядоченной таблице с помощью линейного, бинарного и индексно-последовательного поиска.")
-arr = get_array_from_input()
+arr = list(map(int, input("Введите элементы массива через пробел (массив должен быть упорядочен): ").split()))
 print("\nРезультаты поиска:")
 print(f"\nЛинейный поиск: {linear_search(arr)}")
 print(f"Бинарный поиск: {binary_search(arr)}")
