@@ -1,108 +1,226 @@
-import random
-import time
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
 
-def linear_random_search(arr, target):
-    comparisons = 0
-    start_time = time.time()
-    
-    shuffled_arr = arr.copy()
-    random.shuffle(shuffled_arr)
-    
-    for i in range(len(shuffled_arr)):
-        comparisons += 1
-        if shuffled_arr[i] == target:
-            end_time = time.time()
-            return shuffled_arr[i], comparisons, end_time - start_time
-    
-    end_time = time.time()
-    return None, comparisons, end_time - start_time
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+        self.comparisons = 0
 
-def binary_random_search(arr, target):
-    comparisons = 0
-    start_time = time.time()
-    
-    shuffled_arr = sorted(arr.copy())
-    random.shuffle(shuffled_arr)
-    sorted_arr = sorted(shuffled_arr)
-    
-    left, right = 0, len(sorted_arr) - 1
-    
-    while left <= right:
-        comparisons += 1
-        mid = (left + right) // 2
-        
-        if sorted_arr[mid] == target:
-            end_time = time.time()
-            return sorted_arr[mid], comparisons, end_time - start_time
-        elif sorted_arr[mid] < target:
-            left = mid + 1
+    def insert(self, data):
+        if self.root is None:
+            self.root = Node(data)
         else:
-            right = mid - 1
-    
-    end_time = time.time()
-    return None, comparisons, end_time - start_time
+            self._insert_recursive(self.root, data)
 
-def indexed_sequential_random_search(arr, target):
-    comparisons = 0
-    start_time = time.time()
-    
-    n = len(arr)
-    group_size = 3
-    indices = []
-    elements = []
-    
-    shuffled_arr = arr.copy()
-    random.shuffle(shuffled_arr)
-    
-    for i in range(0, n, group_size):
-        comparisons += 1
-        if i + group_size <= n:
-            elements.append(shuffled_arr[i])
-            indices.append(i)
+    def _insert_recursive(self, node, data):
+        self.comparisons += 1
+        if data < node.data:
+            if node.left is None:
+                node.left = Node(data)
+            else:
+                self._insert_recursive(node.left, data)
+        elif data > node.data:
+            if node.right is None:
+                node.right = Node(data)
+            else:
+                self._insert_recursive(node.right, data)
+
+    def linear_search(self, target):
+        self.comparisons = 0
+        result = self._in_order_traversal(self.root, [])
+        for item in result:
+            self.comparisons += 1
+            if item == target:
+                return True
+        return False
+
+    def _in_order_traversal(self, node, result):
+        if node:
+            self._in_order_traversal(node.left, result)
+            result.append(node.data)
+            self._in_order_traversal(node.right, result)
+        return result
+
+    def binary_search(self, target):
+        self.comparisons = 0
+        return self._binary_search_recursive(self.root, target)
+
+    def _binary_search_recursive(self, node, target):
+        if node is None:
+            return False
+        self.comparisons += 1
+        if target < node.data:
+            return self._binary_search_recursive(node.left, target)
+        elif target > node.data:
+            return self._binary_search_recursive(node.right, target)
+        return True
+
+    def indexed_search(self, target):
+        self.comparisons = 0
+        result = self._in_order_traversal(self.root, [])
+        for i in range(len(result)):
+            self.comparisons += 1
+            if result[i] == target:
+                return True
+        return False
+
+
+class SinglyLinkedListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.comparisons = 0
+
+    def append(self, data):
+        new_node = SinglyLinkedListNode(data)
+        if not self.head:
+            self.head = new_node
+            return
+        last = self.head
+        while last.next:
+            last = last.next
+        last.next = new_node
+
+    def linear_search(self, target):
+        self.comparisons = 0
+        current = self.head
+        while current:
+            self.comparisons += 1
+            if current.data == target:
+                return True
+            current = current.next
+        return False
+
+    def indexed_search(self, target):
+        self.comparisons = 0
+        current = self.head
+        index = 0
+        while current:
+            self.comparisons += 1
+            if index == target:
+                return current.data == target
+            current = current.next
+            index += 1
+        return False
+
+
+class CircularLinkedListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+        self.comparisons = 0
+
+    def append(self, data):
+        new_node = CircularLinkedListNode(data)
+        if not self.head:
+            self.head = new_node
+            new_node.next = self.head
+            return
+        last = self.head
+        while last.next != self.head:
+            last = last.next
+        last.next = new_node
+        new_node.next = self.head
+
+    def linear_search(self, target):
+        self.comparisons = 0
+        if self.head:
+            current = self.head
+            while True:
+                self.comparisons += 1
+                if current.data == target:
+                    return True
+                current = current.next
+                if current == self.head:
+                    break
+        return False
+
+    def indexed_search(self, target):
+        self.comparisons = 0
+        current = self.head
+        index = 0
+        while current:
+            self.comparisons += 1
+            if index == target:
+                return current.data == target
+            current = current.next
+            index += 1
+            if current == self.head:
+                break
+        return False
+
+if __name__ == "__main__":
+    print("Выберите структуру данных:")
+    print("1. Бинарное дерево")
+    print("2. Односвязный список")
+    print("3. Кольцевой список")
+    choice = input("Введите номер (1/2/3): ")
+
+    n = int(input("Введите количество элементов: "))
+    print("Введите элементы (через пробел):")
+    elements = list(map(int, input().split()))
+
+    target = int(input("Введите элемент для поиска: "))
+
+    if choice == '1':
+        bst = BinaryTree()
+        for element in elements:
+            bst.insert(element)
+
+        search_type = input("Выберите тип поиска (1 - Линейный, 2 - Бинарный, 3 - Индексно-последовательный): ")
+        if search_type == '1':
+            found = bst.linear_search(target)
+        elif search_type == '2':
+            found = bst.binary_search(target)
+        elif search_type == '3':
+            found = bst.indexed_search(target)
         else:
-            elements.append(shuffled_arr[i])
-            indices.append(i)
-    
-    random.shuffle(elements)
-    for i in range(len(elements)):
-        comparisons += 1
-        if elements[i] >= target:
-            start_idx = indices[i]
-            end_idx = min(start_idx + group_size, n)
-            for j in range(start_idx, end_idx):
-                comparisons += 1
-                if shuffled_arr[j] == target:
-                    end_time = time.time()
-                    return shuffled_arr[j], comparisons, end_time - start_time
-            break
-    
-    end_time = time.time()
-    return None, comparisons, end_time - start_time
+            print("Некорректный выбор поиска.")
 
-print("Задание №8: Поиск элементов случайным образом помощью линейного, бинарного и индексно-последовательного поиска.")
-arr = list(map(int, input("Введите элементы массива через пробел: ").split()))
-    
-try:
-    target = float(input("\nВведите искомое число: "))
-except ValueError:
-    print("\nОшибка: неверный формат числа")
-    
-print("\nРезультаты поиска:")
+        print(f"Элемент {'найден' if found else 'не найден'}. Количество сравнений: {bst.comparisons}")
 
-linear_result, linear_comparisons, linear_time = linear_random_search(arr, target)
-print(f"\nЛинейный случайный поиск:")
-print(f"Результат: {linear_result}")
-print(f"Количество сравнений: {linear_comparisons}")
-print(f"Время выполнения: {linear_time:.6f} секунд")
+    elif choice == '2':
+        sll = SinglyLinkedList()
+        for element in elements:
+            sll.append(element)
 
-binary_result, binary_comparisons, binary_time = binary_random_search(arr, target)
-print(f"\nБинарный случайный поиск:")
-print(f"Результат: {binary_result}")
-print(f"Количество сравнений: {binary_comparisons}")
-print(f"Время выполнения: {binary_time:.6f} секунд")
+        search_type = input("Выберите тип поиска (1 - Линейный, 3 - Индексно-последовательный): ")
+        if search_type == '1':
+            found = sll.linear_search(target)
+        elif search_type == '3':
+            found = sll.indexed_search(target)
+        else:
+            print("Некорректный выбор поиска.")
 
-indexed_result, indexed_comparisons, indexed_time = indexed_sequential_random_search(arr, target)
-print(f"\nИндексно-последовательный случайный поиск:")
-print(f"Результат: {indexed_result}")
-print(f"Количество сравнений: {indexed_comparisons}")
-print(f"Время выполнения: {indexed_time:.6f} секунд")
+        print(f"Элемент {'найден' if found else 'не найден'}. Количество сравнений: {sll.comparisons}")
+
+    elif choice == '3':
+        cll = CircularLinkedList()
+        for element in elements:
+            cll.append(element)
+
+        search_type = input("Выберите тип поиска (1 - Линейный, 3 - Индексно-последовательный): ")
+        if search_type == '1':
+            found = cll.linear_search(target)
+        elif search_type == '3':
+            found = cll.indexed_search(target)
+        else:
+            print("Некорректный выбор поиска.")
+
+        print(f"Элемент {'найден' if found else 'не найден'}. Количество сравнений: {cll.comparisons}")
+
+    else:
+        print("Некорректный выбор. Программа завершена.")

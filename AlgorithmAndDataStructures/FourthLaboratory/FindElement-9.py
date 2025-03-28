@@ -1,96 +1,178 @@
-import time
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
 
-def linear_search(arr, target):
-    comparisons = 0
-    start_time = time.time()
-    
-    for i in range(len(arr)):
-        comparisons += 1
-        if arr[i] == target:
-            end_time = time.time()
-            return i, comparisons, end_time - start_time
-    
-    end_time = time.time()
-    return -1, comparisons, end_time - start_time
+class BinaryTree:
+    def __init__(self):
+        self.root = None
 
-def binary_search(arr, target):
-    comparisons = 0
-    start_time = time.time()
-    
-    sorted_arr = sorted(arr)
-    left, right = 0, len(sorted_arr) - 1
-    
-    while left <= right:
-        comparisons += 1
-        mid = (left + right) // 2
-        
-        if sorted_arr[mid] == target:
-            for i in range(len(arr)):
-                if arr[i] == target:
-                    end_time = time.time()
-                    return i, comparisons, end_time - start_time
-        elif sorted_arr[mid] < target:
-            left = mid + 1
+    def insert(self, data):
+        if not self.root:
+            self.root = Node(data)
         else:
-            right = mid - 1
-    
-    end_time = time.time()
-    return -1, comparisons, end_time - start_time
+            self._insert(self.root, data)
 
-def indexed_sequential_search(arr, target):
-    comparisons = 0
-    start_time = time.time()
-    
-    n = len(arr)
-    group_size = 3
-    indices = []
-    elements = []
-    
-    for i in range(0, n, group_size):
-        comparisons += 1
-        if i + group_size <= n:
-            elements.append(arr[i])
-            indices.append(i)
+    def _insert(self, current_node, data):
+        if data < current_node.data:
+            if current_node.left is None:
+                current_node.left = Node(data)
+            else:
+                self._insert(current_node.left, data)
         else:
-            elements.append(arr[i])
-            indices.append(i)
-    
-    for i in range(len(elements)):
-        comparisons += 1
-        if elements[i] >= target:
-            start_idx = indices[i]
-            end_idx = min(start_idx + group_size, n)
-            for j in range(start_idx, end_idx):
-                comparisons += 1
-                if arr[j] == target:
-                    end_time = time.time()
-                    return j, comparisons, end_time - start_time
-            break
-    
-    end_time = time.time()
-    return -1, comparisons, end_time - start_time
+            if current_node.right is None:
+                current_node.right = Node(data)
+            else:
+                self._insert(current_node.right, data)
 
+    def linear_search(self, target):
+        return self._linear_search(self.root, target, 1)
 
-print("Задание 9: Дан список номеров машин (345, 368, 876, 945, 564, 387, 230), найти, на каком месте стоит машина с заданным номером, линейный, бинарный и индексно-последовательный поиск.")
-target = [1, 2, 3, 4, 5, 6, 7]
-car_numbers = [345, 368, 876, 945, 564, 387, 230]
+    def _linear_search(self, node, target, position):
+        if not node:
+            return None, position
+        if node.data == target:
+            return node, position
+        left_result, left_position = self._linear_search(node.left, target, position)
+        if left_result:
+            return left_result, left_position
+        return self._linear_search(node.right, target, left_position + 1)
 
-print("\nРезультаты поиска:")
+    def print_tree(self):
+        if self.root:
+            self._print_tree(self.root)
+        print()
 
-linear_pos, linear_comparisons, linear_time = linear_search(car_numbers, target)
-print(f"\nЛинейный поиск:")
-print(f"Позиция: {linear_pos}")
-print(f"Количество сравнений: {linear_comparisons}")
-print(f"Время выполнения: {linear_time:.6f} секунд")
+    def _print_tree(self, node):
+        if node:
+            self._print_tree(node.left)
+            print(node.data, end=" ")
+            self._print_tree(node.right)
 
-binary_pos, binary_comparisons, binary_time = binary_search(car_numbers, target)
-print(f"\nБинарный поиск:")
-print(f"Позиция: {binary_pos}")
-print(f"Количество сравнений: {binary_comparisons}")
-print(f"Время выполнения: {binary_time:.6f} секунд")
+class SinglyLinkedListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
-indexed_pos, indexed_comparisons, indexed_time = indexed_sequential_search(car_numbers, target)
-print(f"\nИндексно-последовательный поиск:")
-print(f"Позиция: {indexed_pos}")
-print(f"Количество сравнений: {indexed_comparisons}")
-print(f"Время выполнения: {indexed_time:.6f} секунд")
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = SinglyLinkedListNode(data)
+        if not self.head:
+            self.head = new_node
+            return
+        last = self.head
+        while last.next:
+            last = last.next
+        last.next = new_node
+
+    def linear_search(self, target):
+        current = self.head
+        position = 1
+        while current:
+            if current.data == target:
+                return current, position
+            current = current.next
+            position += 1
+        return None, position
+
+    def print_list(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+
+class CircularLinkedListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = CircularLinkedListNode(data)
+        if not self.head:
+            self.head = new_node
+            new_node.next = self.head
+            return
+        last = self.head
+        while last.next != self.head:
+            last = last.next
+        last.next = new_node
+        new_node.next = self.head
+
+    def linear_search(self, target):
+        current = self.head
+        position = 1
+        while current:
+            if current.data == target:
+                return current, position
+            current = current.next
+            position += 1
+            if current == self.head:
+                break
+        return None, position
+
+    def print_list(self):
+        if not self.head:
+            print("Empty List")
+            return
+        current = self.head
+        while True:
+            print(current.data, end=" -> ")
+            current = current.next
+            if current == self.head:
+                break
+        print("... (circular)")
+
+if __name__ == "__main__":
+    print("Выберите структуру данных:")
+    print("1. Бинарное дерево\n2. Односвязный список\n3. Кольцевой список")
+    choice = input("Введите номер (1/2/3): ")
+
+    n = int(input("Введите количество элементов: "))
+    print("Введите элементы (через пробел):")
+    elements = list(map(int, input().split()))
+
+    if choice == '1':
+        tree = BinaryTree()
+        for element in elements:
+            tree.insert(element)
+        structure = tree
+        structure_type = "Бинарное дерево"
+    elif choice == '2':
+        sll = SinglyLinkedList()
+        for element in elements:
+            sll.append(element)
+        structure = sll
+        structure_type = "Односвязный список"
+    elif choice == '3':
+        cll = CircularLinkedList()
+        for element in elements:
+            cll.append(element)
+        structure = cll
+        structure_type = "Кольцевой список"
+    else:
+        print("Некорректный выбор.")
+
+    print(f"Вы выбрали: {structure_type}")
+    if choice == '1':
+        print("Дерево элементов:")
+        structure.print_tree()
+    else:
+        print("Список элементов:")
+        structure.print_list()
+
+    target = int(input("Введите номер для поиска: "))
+
+    found_node_linear, position_linear = structure.linear_search(target)
+    if found_node_linear:
+        print(f"Линейный поиск: элемент {target} найден на позиции {position_linear}.")
+    else:
+        print(f"Линейный поиск: элемент {target} не найден.")
