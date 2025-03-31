@@ -28,7 +28,6 @@ class BinaryTree:
                 node.right = Node(value)
             else:
                 self._insert_recursive(node.right, value)
-        # Если значение уже существует, ничего не делаем
     
     def search(self, value):
         return self._search_recursive(self.root, value)
@@ -55,13 +54,11 @@ class BinaryTree:
         elif value > node.value:
             node.right = self._delete_recursive(node.right, value)
         else:
-            # Узел с одним или без детей
             if node.left is None:
                 return node.right
             elif node.right is None:
                 return node.left
             
-            # Узел с двумя детьми: получаем минимальное значение в правом поддереве
             min_node = self._find_min(node.right)
             node.value = min_node.value
             node.right = self._delete_recursive(node.right, min_node.value)
@@ -94,7 +91,6 @@ class BinaryTree:
         if node is not None:
             self._find_and_process_recursive(node.left, condition, results, action, value, x, y)
             
-            # Проверяем условие
             match condition:
                 case "multiple":
                     if node.value % value == 0:
@@ -161,13 +157,11 @@ def main():
     choice = input("Ваш выбор (1/2): ")
     
     if choice == "1":
-        # Автоматическая генерация 15 уникальных чисел
         elements = random.sample(range(-99, 100), 15)
         for elem in elements:
             tree.insert(elem)
         print("Сгенерированные элементы:", elements)
     elif choice == "2":
-        # Ручной ввод 15 чисел
         print("Введите 15 уникальных чисел от -99 до 99:")
         for i in range(15):
             while True:
@@ -192,7 +186,6 @@ def main():
     
     print("\nТекущее дерево (inorder):", tree.inorder_traversal())
     
-    # Меню для выбора условия
     print("\nВыберите условие для поиска/обработки:")
     print("1. Числа кратные N")
     print("2. Нечетные числа")
@@ -239,11 +232,9 @@ def main():
         x = int(input("Введите значение X: "))
         y = int(input("Введите значение Y: "))
     
-    # Поиск элементов по условию
     results = tree.find_and_process(condition, "print", value, x, y)
     print(f"\nНайденные элементы ({condition}):", results)
     
-    # Меню для действий с найденными элементами
     print("\nВыберите действие:")
     print("1. Удалить найденные элементы")
     print("2. Вставить новые элементы")
@@ -252,13 +243,11 @@ def main():
     action_choice = input("Ваш выбор (1-3): ")
     
     if action_choice == "1":
-        # Удаление найденных элементов
         for num in results:
             tree.delete(num)
         print("Элементы удалены.")
         print("Обновленное дерево (inorder):", tree.inorder_traversal())
     elif action_choice == "2":
-        # Вставка новых элементов
         print("Введите числа для вставки (разделяйте пробелом):")
         new_elements = input().split()
         for elem in new_elements:
