@@ -3,7 +3,7 @@ class Node:
         self.data = data
         self.next = None
         self.left = None
-        self.right = None  
+        self.right = None 
 
 class LinkedList:
     def __init__(self):
@@ -105,7 +105,6 @@ if __name__ == "__main__":
     if choice == '1':
         ll = LinkedList()
         n = int(input("Введите количество элементов в списке: "))
-        print("", end=' ')
         elements = list(map(int, input("Введите элементы списка (через пробел): ").split()))
         for element in elements:
             ll.append(element)

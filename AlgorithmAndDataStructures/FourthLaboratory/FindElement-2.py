@@ -156,7 +156,6 @@ class BinaryTree:
 
 if __name__ == "__main__":
     choice = input("Выберите структуру данных (1 - Односвязный список, 2 - Кольцевой список, 3 - Бинарное дерево): ")
-
     if choice == '1':
         ll = LinkedList()
         n = int(input("Введите количество элементов в списке: "))
@@ -176,7 +175,6 @@ if __name__ == "__main__":
 
         indexed_result = ll.indexed_search()
         print(f"Индексно-последовательный поиск: элементы больше 30: {indexed_result}")
-
     elif choice == '2':
         cll = CircularLinkedList()
         n = int(input("Введите количество элементов в списке: "))
@@ -190,7 +188,6 @@ if __name__ == "__main__":
 
         linear_result = cll.linear_search()
         print(f"Линейный поиск: элементы больше 30: {linear_result}")
-
     elif choice == '3':
         bt = BinaryTree()
         n = int(input("Введите количество элементов в дереве: "))
@@ -204,6 +201,5 @@ if __name__ == "__main__":
 
         linear_result = bt.linear_search()
         print(f"Линейный поиск: элементы больше 30: {linear_result}")
-
     else:
         print("Неверный выбор!")
