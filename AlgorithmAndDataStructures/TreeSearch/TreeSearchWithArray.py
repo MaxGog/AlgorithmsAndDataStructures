@@ -128,76 +128,72 @@ def sum_of_digits(n):
     n = abs(n)
     return sum(int(d) for d in str(n))
 
-def main():
-    tree = BinaryTree()
-    choice = input("Хотите ввести элементы вручную? (y/n): ").lower()
-    
-    if choice == 'y':
-        print("Введите 15 чисел в диапазоне от -99 до 99:")
-        for _ in range(15):
-            while True:
-                try:
-                    num = int(input())
-                    if -99 <= num <= 99:
-                        tree.insert(num)
-                        break
-                    else:
-                        print("Число должно быть в диапазоне от -99 до 99. Попробуйте еще раз.")
-                except ValueError:
-                    print("Некорректный ввод. Введите целое число.")
-    else:
-        print("Генерация случайных чисел...")
-        for _ in range(15):
-            num = random.randint(-99, 99)
-            tree.insert(num)
-    
-    tree.display()
-    
-    N = int(input("Введите число N: "))
-    X = int(input("Введите число X: "))
-    Y = int(input("Введите число Y: "))
-    
-    conditions = [
-        ("Числа кратные N", lambda x: x % N == 0),
-        ("Нечетные числа", lambda x: x % 2 != 0),
-        ("Числа > N", lambda x: x > N),
-        ("Числа < N", lambda x: x < N),
-        ("Числа по выбору (равные N)", lambda x: x == N),
-        ("Простые числа", is_prime),
-        ("Составные числа", lambda x: not is_prime(x) and x not in [-1, 0, 1]),
-        ("Числа в интервале от X до Y", lambda x: X <= x <= Y),
-        ("Числа, сумма цифр (по модулю) которого > N", lambda x: sum_of_digits(x) > N),
-        ("Числа, сумма цифр (по модулю) которого < N", lambda x: sum_of_digits(x) < N),
-        ("Числа, сумма цифр (по модулю) которого лежит в интервале от X до Y", lambda x: X <= sum_of_digits(x) <= Y),
-        ("Числа, взятые по модулю, квадратный корень которых целое число", lambda x: math.sqrt(abs(x)) == int(math.sqrt(abs(x))))
-    ]
-    
-    while True:
-        print("\nВыберите операцию:")
-        for i, (name, _) in enumerate(conditions, 1):
-            print(f"{i}. {name}")
-        print("0. Выход")
-        
-        try:
-            choice = int(input("Ваш выбор: "))
-            if choice == 0:
-                break
-            if 1 <= choice <= len(conditions):
-                name, condition = conditions[choice-1]
-                
-                print(f"\nПоиск: {name}")
-                found = tree.search(condition)
-                found.display()
-                
-                confirm = input(f"Удалить все элементы, удовлетворяющие условию '{name}'? (y/n): ").lower()
-                if confirm == 'y':
-                    tree.delete(condition)
-                    print("Элементы удалены. Обновленное дерево:")
-                    tree.display()
-            else:
-                print("Некорректный выбор. Попробуйте еще раз.")
-        except ValueError:
-            print("Некорректный ввод. Введите число.")
+tree = BinaryTree()
+choice = input("Хотите ввести элементы вручную? (y/n): ").lower()
 
-if __name__ == "__main__":
-    main()
+if choice == 'y':
+    print("Введите 15 чисел в диапазоне от -99 до 99:")
+    for _ in range(15):
+        while True:
+            try:
+                num = int(input())
+                if -99 <= num <= 99:
+                    tree.insert(num)
+                    break
+                else:
+                    print("Число должно быть в диапазоне от -99 до 99. Попробуйте еще раз.")
+            except ValueError:
+                print("Некорректный ввод. Введите целое число.")
+else:
+    print("Генерация случайных чисел...")
+    for _ in range(15):
+        num = random.randint(-99, 99)
+        tree.insert(num)
+
+tree.display()
+
+N = int(input("Введите число N: "))
+X = int(input("Введите число X: "))
+Y = int(input("Введите число Y: "))
+
+conditions = [
+    ("Числа кратные N", lambda x: x % N == 0),
+    ("Нечетные числа", lambda x: x % 2 != 0),
+    ("Числа > N", lambda x: x > N),
+    ("Числа < N", lambda x: x < N),
+    ("Числа по выбору (равные N)", lambda x: x == N),
+    ("Простые числа", is_prime),
+    ("Составные числа", lambda x: not is_prime(x) and x not in [-1, 0, 1]),
+    ("Числа в интервале от X до Y", lambda x: X <= x <= Y),
+    ("Числа, сумма цифр (по модулю) которого > N", lambda x: sum_of_digits(x) > N),
+    ("Числа, сумма цифр (по модулю) которого < N", lambda x: sum_of_digits(x) < N),
+    ("Числа, сумма цифр (по модулю) которого лежит в интервале от X до Y", lambda x: X <= sum_of_digits(x) <= Y),
+    ("Числа, взятые по модулю, квадратный корень которых целое число", lambda x: math.sqrt(abs(x)) == int(math.sqrt(abs(x))))
+]
+
+while True:
+    print("\nВыберите операцию:")
+    for i, (name, _) in enumerate(conditions, 1):
+        print(f"{i}. {name}")
+    print("0. Выход")
+    
+    try:
+        choice = int(input("Ваш выбор: "))
+        if choice == 0:
+            break
+        if 1 <= choice <= len(conditions):
+            name, condition = conditions[choice-1]
+            
+            print(f"\nПоиск: {name}")
+            found = tree.search(condition)
+            found.display()
+            
+            confirm = input(f"Удалить все элементы, удовлетворяющие условию '{name}'? (y/n): ").lower()
+            if confirm == 'y':
+                tree.delete(condition)
+                print("Элементы удалены. Обновленное дерево:")
+                tree.display()
+        else:
+            print("Некорректный выбор. Попробуйте еще раз.")
+    except ValueError:
+        print("Некорректный ввод. Введите число.")

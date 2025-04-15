@@ -148,119 +148,115 @@ class BinaryTree:
     def _digit_sum(self, n):
         return sum(int(digit) for digit in str(n))
 
-def main():
-    tree = BinaryTree()
-    
-    print("Выберите способ заполнения дерева:")
-    print("1. Автоматическая генерация")
-    print("2. Ручной ввод")
-    choice = input("Ваш выбор (1/2): ")
-    
-    if choice == "1":
-        elements = random.sample(range(-99, 100), 15)
-        for elem in elements:
-            tree.insert(elem)
-        print("Сгенерированные элементы:", elements)
-    elif choice == "2":
-        print("Введите 15 уникальных чисел от -99 до 99:")
-        for i in range(15):
-            while True:
-                try:
-                    num = int(input(f"Число {i+1}: "))
-                    if -99 <= num <= 99:
-                        if not tree.search(num):
-                            tree.insert(num)
-                            break
-                        else:
-                            print("Это число уже есть в дереве. Введите другое.")
-                    else:
-                        print("Число должно быть в диапазоне от -99 до 99.")
-                except ValueError:
-                    print("Пожалуйста, введите целое число.")
-    else:
-        print("Неверный выбор. Используется автоматическая генерация.")
-        elements = random.sample(range(-99, 100), 15)
-        for elem in elements:
-            tree.insert(elem)
-        print("Сгенерированные элементы:", elements)
-    
-    print("\nТекущее дерево (inorder):", tree.inorder_traversal())
-    
-    print("\nВыберите условие для поиска/обработки:")
-    print("1. Числа кратные N")
-    print("2. Нечетные числа")
-    print("3. Числа > N")
-    print("4. Числа < N")
-    print("5. Числа по выбору")
-    print("6. Простые числа")
-    print("7. Составные числа")
-    print("8. Числа в интервале от X до Y")
-    print("9. Числа, сумма цифр (по модулю) которого > N")
-    print("10. Числа, сумма цифр (по модулю) которого < N")
-    print("11. Числа, сумма цифр (по модулю) которого лежит в интервале от X до Y")
-    print("12. Числа, взятые по модулю, квадратный корень которых целое число")
-    
-    condition_choice = input("Ваш выбор (1-12): ")
-    
-    condition_map = {
-        "1": "multiple",
-        "2": "odd",
-        "3": "greater",
-        "4": "less",
-        "5": "selected",
-        "6": "prime",
-        "7": "composite",
-        "8": "interval",
-        "9": "digit_sum_greater",
-        "10": "digit_sum_less",
-        "11": "digit_sum_interval",
-        "12": "perfect_square"
-    }
-    
-    condition = condition_map.get(condition_choice)
-    if not condition:
-        print("Неверный выбор. Используется поиск простых чисел.")
-        condition = "prime"
-    
-    value = None
-    x = None
-    y = None
-    
-    if condition in ["multiple", "greater", "less", "selected", "digit_sum_greater", "digit_sum_less"]:
-        value = int(input(f"Введите значение N: "))
-    elif condition in ["interval", "digit_sum_interval"]:
-        x = int(input("Введите значение X: "))
-        y = int(input("Введите значение Y: "))
-    
-    results = tree.find_and_process(condition, "print", value, x, y)
-    print(f"\nНайденные элементы ({condition}):", results)
-    
-    print("\nВыберите действие:")
-    print("1. Удалить найденные элементы")
-    print("2. Вставить новые элементы")
-    print("3. Ничего не делать")
-    
-    action_choice = input("Ваш выбор (1-3): ")
-    
-    if action_choice == "1":
-        for num in results:
-            tree.delete(num)
-        print("Элементы удалены.")
-        print("Обновленное дерево (inorder):", tree.inorder_traversal())
-    elif action_choice == "2":
-        print("Введите числа для вставки (разделяйте пробелом):")
-        new_elements = input().split()
-        for elem in new_elements:
-            try:
-                num = int(elem)
-                if -99 <= num <= 99:
-                    tree.insert(num)
-                else:
-                    print(f"Число {num} вне диапазона и не будет вставлено.")
-            except ValueError:
-                print(f"'{elem}' не является числом и будет пропущено.")
-        print("Элементы вставлены.")
-        print("Обновленное дерево (inorder):", tree.inorder_traversal())
+tree = BinaryTree()
+print("Лабораторная работа №6.")
+print("Выберите способ заполнения дерева:")
+print("1. Автоматическая генерация")
+print("2. Ручной ввод")
+choice = input("Ваш выбор (1/2): ")
 
-if __name__ == "__main__":
-    main()
+if choice == "1":
+    elements = random.sample(range(-99, 100), 15)
+    for elem in elements:
+        tree.insert(elem)
+    print("Сгенерированные элементы:", elements)
+elif choice == "2":
+    print("Введите 15 уникальных чисел от -99 до 99:")
+    for i in range(15):
+        while True:
+            try:
+                num = int(input(f"Число {i+1}: "))
+                if -99 <= num <= 99:
+                    if not tree.search(num):
+                        tree.insert(num)
+                        break
+                    else:
+                        print("Это число уже есть в дереве. Введите другое.")
+                else:
+                    print("Число должно быть в диапазоне от -99 до 99.")
+            except ValueError:
+                print("Пожалуйста, введите целое число.")
+else:
+    print("Неверный выбор. Используется автоматическая генерация.")
+    elements = random.sample(range(-99, 100), 15)
+    for elem in elements:
+        tree.insert(elem)
+    print("Сгенерированные элементы:", elements)
+
+print("\nТекущее дерево (inorder):", tree.inorder_traversal())
+
+print("\nВыберите условие для поиска/обработки:")
+print("1. Числа кратные N")
+print("2. Нечетные числа")
+print("3. Числа > N")
+print("4. Числа < N")
+print("5. Числа по выбору")
+print("6. Простые числа")
+print("7. Составные числа")
+print("8. Числа в интервале от X до Y")
+print("9. Числа, сумма цифр (по модулю) которого > N")
+print("10. Числа, сумма цифр (по модулю) которого < N")
+print("11. Числа, сумма цифр (по модулю) которого лежит в интервале от X до Y")
+print("12. Числа, взятые по модулю, квадратный корень которых целое число")
+
+condition_choice = input("Ваш выбор (1-12): ")
+
+condition_map = {
+    "1": "multiple",
+    "2": "odd",
+    "3": "greater",
+    "4": "less",
+    "5": "selected",
+    "6": "prime",
+    "7": "composite",
+    "8": "interval",
+    "9": "digit_sum_greater",
+    "10": "digit_sum_less",
+    "11": "digit_sum_interval",
+    "12": "perfect_square"
+}
+
+condition = condition_map.get(condition_choice)
+if not condition:
+    print("Неверный выбор. Используется поиск простых чисел.")
+    condition = "prime"
+
+value = None
+x = None
+y = None
+
+if condition in ["multiple", "greater", "less", "selected", "digit_sum_greater", "digit_sum_less"]:
+    value = int(input(f"Введите значение N: "))
+elif condition in ["interval", "digit_sum_interval"]:
+    x = int(input("Введите значение X: "))
+    y = int(input("Введите значение Y: "))
+
+results = tree.find_and_process(condition, "print", value, x, y)
+print(f"\nНайденные элементы ({condition}):", results)
+
+print("\nВыберите действие:")
+print("1. Удалить найденные элементы")
+print("2. Вставить новые элементы")
+print("3. Ничего не делать")
+
+action_choice = input("Ваш выбор (1-3): ")
+
+if action_choice == "1":
+    for num in results:
+        tree.delete(num)
+    print("Элементы удалены.")
+    print("Обновленное дерево (inorder):", tree.inorder_traversal())
+elif action_choice == "2":
+    print("Введите числа для вставки (разделяйте пробелом):")
+    new_elements = input().split()
+    for elem in new_elements:
+        try:
+            num = int(elem)
+            if -99 <= num <= 99:
+                tree.insert(num)
+            else:
+                print(f"Число {num} вне диапазона и не будет вставлено.")
+        except ValueError:
+            print(f"'{elem}' не является числом и будет пропущено.")
+    print("Элементы вставлены.")
+    print("Обновленное дерево (inorder):", tree.inorder_traversal())
