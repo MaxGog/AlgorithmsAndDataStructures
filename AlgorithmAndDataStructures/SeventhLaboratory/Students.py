@@ -3,7 +3,7 @@ class Student:
         self.last_name = last_name
         self.first_name = first_name
         self.birth_year = birth_year
-        self.grades = grades  # список [структуры, матан, физика, программирование]
+        self.grades = grades
         self.total_score = total_score
 
 def selection_sort(arr, key=lambda x: x, reverse=False):
@@ -20,7 +20,7 @@ def selection_sort(arr, key=lambda x: x, reverse=False):
         arr[i], arr[extreme] = arr[extreme], arr[i]
     return arr
 
-# Пример данных
+
 students = [
     Student("Иванов", "Алексей", 1980, [4, 5, 4, 5], 18),
     Student("Петров", "Борис", 1982, [3, 4, 3, 4], 14),
@@ -29,73 +29,61 @@ students = [
     Student("Борисов", "Дмитрий", 1980, [3, 3, 4, 4], 14),
 ]
 
-# 1. Фамилии по алфавиту
 sorted_students = selection_sort(students, key=lambda s: s.last_name)
 print("1. Фамилии по алфавиту:")
 for student in sorted_students:
     print(student.last_name)
 
-# 2. Фамилии по алфавиту в обратном порядке
 sorted_students = selection_sort(students, key=lambda s: s.last_name, reverse=True)
 print("\n2. Фамилии в обратном порядке:")
 for student in sorted_students:
     print(student.last_name)
 
-# 3. По старшинству (старшие первыми)
 sorted_students = selection_sort(students, key=lambda s: s.birth_year)
 print("\n3. По старшинству (старшие первыми):")
 for student in sorted_students:
     print(f"{student.last_name} ({student.birth_year} г.р.)")
 
-# 4. По старшинству (младшие первыми)
 sorted_students = selection_sort(students, key=lambda s: s.birth_year, reverse=True)
 print("\n4. По старшинству (младшие первыми):")
 for student in sorted_students:
     print(f"{student.last_name} ({student.birth_year} г.р.)")
 
-# 5. По общему баллу (по возрастанию)
 sorted_students = selection_sort(students, key=lambda s: s.total_score)
 print("\n5. По общему баллу (по возрастанию):")
 for student in sorted_students:
     print(f"{student.last_name}: {student.total_score}")
 
-# 6. По общему баллу (по убыванию)
 sorted_students = selection_sort(students, key=lambda s: s.total_score, reverse=True)
 print("\n6. По общему баллу (по убыванию):")
 for student in sorted_students:
     print(f"{student.last_name}: {student.total_score}")
 
-# 7. По результатам 1-го экзамена (по возрастанию)
 sorted_students = selection_sort(students, key=lambda s: s.grades[0])
 print("\n7. По результатам 1-го экзамена (структуры):")
 for student in sorted_students:
     print(f"{student.last_name}: {student.grades[0]}")
 
-# 8. По результатам 2-го экзамена (по убыванию)
 sorted_students = selection_sort(students, key=lambda s: s.grades[1], reverse=True)
 print("\n8. По результатам 2-го экзамена (матан, по убыванию):")
 for student in sorted_students:
     print(f"{student.last_name}: {student.grades[1]}")
 
-# 9. По результатам 3-го экзамена (по возрастанию)
 sorted_students = selection_sort(students, key=lambda s: s.grades[2])
 print("\n9. По результатам 3-го экзамена (физика):")
 for student in sorted_students:
     print(f"{student.last_name}: {student.grades[2]}")
 
-# 10. По результатам 4-го экзамена (по убыванию)
 sorted_students = selection_sort(students, key=lambda s: s.grades[3], reverse=True)
 print("\n10. По результатам 4-го экзамена (программирование, по убыванию):")
 for student in sorted_students:
     print(f"{student.last_name}: {student.grades[3]}")
 
-# 11. Имена по алфавиту
 sorted_students = selection_sort(students, key=lambda s: s.first_name)
 print("\n11. Имена по алфавиту:")
 for student in sorted_students:
     print(student.first_name)
 
-# 12. Имена в обратном алфавитном порядке
 sorted_students = selection_sort(students, key=lambda s: s.first_name, reverse=True)
 print("\n12. Имена в обратном алфавитном порядке:")
 for student in sorted_students:
