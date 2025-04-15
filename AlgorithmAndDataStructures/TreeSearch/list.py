@@ -4,47 +4,37 @@ import math
 class Node:
     def __init__(self, value):
         self.value = value
-        self.left = None
-        self.right = None
+        self.next = None
 
-class BinaryTree:
-    """Класс бинарного дерева"""
+class CircularLinkedList:
     def __init__(self):
-        self.root = None
+        self.head = None
 
     def insert(self, value):
-        """Вставка элемента в дерево"""
-        if self.root is None:
-            self.root = Node(value)
+        new_node = Node(value)
+        if not self.head:
+            self.head = new_node
+            self.head.next = self.head
         else:
-            self._insert(self.root, value)
+            current = self.head
+            while current.next != self.head:
+                current = current.next
+            current.next = new_node
+            new_node.next = self.head
 
-    def _insert(self, node, value):
-        if value < node.value:
-            if node.left is None:
-                node.left = Node(value)
-            else:
-                self._insert(node.left, value)
-        else:
-            if node.right is None:
-                node.right = Node(value)
-            else:
-                self._insert(node.right, value)
-
-    def inorder_traversal(self):
-        """Обход дерева (симметричный)"""
+    def to_list(self):
+        if not self.head:
+            return []
         result = []
-        self._inorder_traversal(self.root, result)
+        current = self.head
+        while True:
+            result.append(current.value)
+            current = current.next
+            if current == self.head:
+                break
         return result
 
-    def _inorder_traversal(self, node, result):
-        if node:
-            self._inorder_traversal(node.left, result)
-            result.append(node.value)
-            self._inorder_traversal(node.right, result)
-
 def is_prime(n):
-    """Проверка, является ли число простым"""
     if n < 2:
         return False
     for i in range(2, int(math.sqrt(n)) + 1):
@@ -57,7 +47,7 @@ def sum_of_digits(n):
     return sum(int(digit) for digit in str(abs(n)))
 
 def menu():
-    tree = BinaryTree()
+    linked_list = CircularLinkedList()
     
     choice = input("Выберите способ ввода (1 - случайные числа, 2 - вручную): ")
     
@@ -78,10 +68,10 @@ def menu():
         print("Неверный выбор! Выход из программы.")
         return
     
-    print("Числа в дереве:", numbers)
+    print("Числа в списке:", numbers)
     
     for num in numbers:
-        tree.insert(num)
+        linked_list.insert(num)
 
     while True:
         print("\nМеню:")
@@ -100,43 +90,44 @@ def menu():
         print("0. Выход")
 
         choice = int(input("Выберите вариант: "))
+        data = linked_list.to_list()
 
         if choice == 0:
             break
         elif choice == 1:
             N = int(input("Введите N: "))
-            result = [num for num in tree.inorder_traversal() if num % N == 0]
+            result = [num for num in data if num % N == 0]
         elif choice == 2:
-            result = [num for num in tree.inorder_traversal() if num % 2 != 0]
+            result = [num for num in data if num % 2 != 0]
         elif choice == 3:
             N = int(input("Введите N: "))
-            result = [num for num in tree.inorder_traversal() if num > N]
+            result = [num for num in data if num > N]
         elif choice == 4:
             N = int(input("Введите N: "))
-            result = [num for num in tree.inorder_traversal() if num < N]
+            result = [num for num in data if num < N]
         elif choice == 5:
             selected = int(input("Введите число для поиска: "))
-            result = [selected] if selected in tree.inorder_traversal() else []
+            result = [selected] if selected in data else []
         elif choice == 6:
-            result = [num for num in tree.inorder_traversal() if is_prime(num)]
+            result = [num for num in data if is_prime(num)]
         elif choice == 7:
-            result = [num for num in tree.inorder_traversal() if num > 1 and not is_prime(num)]
+            result = [num for num in data if num > 1 and not is_prime(num)]
         elif choice == 8:
             X = int(input("Введите X: "))
             Y = int(input("Введите Y: "))
-            result = [num for num in tree.inorder_traversal() if X <= num <= Y]
+            result = [num for num in data if X <= num <= Y]
         elif choice == 9:
             N = int(input("Введите N: "))
-            result = [num for num in tree.inorder_traversal() if sum_of_digits(num) > N]
+            result = [num for num in data if sum_of_digits(num) > N]
         elif choice == 10:
             N = int(input("Введите N: "))
-            result = [num for num in tree.inorder_traversal() if sum_of_digits(num) < N]
+            result = [num for num in data if sum_of_digits(num) < N]
         elif choice == 11:
             X = int(input("Введите X: "))
             Y = int(input("Введите Y: "))
-            result = [num for num in tree.inorder_traversal() if X <= sum_of_digits(num) <= Y]
+            result = [num for num in data if X <= sum_of_digits(num) <= Y]
         elif choice == 12:
-            result = [num for num in tree.inorder_traversal() if math.sqrt(abs(num)).is_integer()]
+            result = [num for num in data if math.sqrt(abs(num)).is_integer()]
         else:
             print("Неверный выбор, попробуйте снова.")
             continue
