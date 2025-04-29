@@ -340,107 +340,104 @@ students_data = [
     ("Алексеев", "Михаил", 2001, {"СиАД": 3, "Матеша": 4, "Физика": 4, "Прога": 4}, 15)
 ]
 
-def main():
-    while True:
-        print("\nМеню сортировки:")
-        print("1. Фамилии по алфавиту (кольцевой список)")
-        print("2. Фамилии в обратном порядке (односвязный список)")
-        print("3. По старшинству (от старшего) — бинарное дерево")
-        print("4. По старшинству (от младшего) — бинарное дерево")
-        print("5. По общему баллу (по возрастанию) — граф")
-        print("6. По общему баллу (по убыванию) — граф")
-        print("7. По результатам 1-го экзамена (по возрастанию) — хэш-таблица")
-        print("8. По результатам 2-го экзамена (по убыванию) — хэш-таблица")
-        print("9. По результатам 3-го экзамена (по возрастанию) — хэш-таблица")
-        print("10. По результатам 4-го экзамена (по убыванию) — хэш-таблица")
-        print("0. Выход")
-        choice = input("Введите номер варианта: ")
+while True:
+    print("\nЛабораторная работа №7 - студенты:")
+    print("1) Фамилии по алфавиту (кольцевой список)")
+    print("2) Фамилии в обратном порядке (односвязный список)")
+    print("3) По старшинству (от старшего) (бинарное дерево)")
+    print("4) По старшинству (от младшего) (бинарное дерево)")
+    print("5) По общему баллу (по возрастанию) (граф)")
+    print("6) По общему баллу (по убыванию) (граф)")
+    print("7) По результатам 1-го экзамена (по возрастанию) (хэш-таблица)")
+    print("8) По результатам 2-го экзамена (по убыванию) (хэш-таблица)")
+    print("9) По результатам 3-го экзамена (по возрастанию) (хэш-таблица)")
+    print("10) По результатам 4-го экзамена (по убыванию) (хэш-таблица)")
+    print("0) Выход")
+    choice = input("Введите номер варианта: ")
 
-        if choice == "1":
-            group = CircularLinkedList()
-            for data in students_data:
-                group.append(StudentNode(*data))
-            print("\nДо сортировки:")
-            group.print_list()
-            group.selection_sort_by_last_name()
-            print("\nПосле сортировки (по алфавиту):")
-            group.print_list()
+    if choice == "1":
+        group = CircularLinkedList()
+        for data in students_data:
+            group.append(StudentNode(*data))
+        print("\nДо сортировки:")
+        group.print_list()
+        group.selection_sort_by_last_name()
+        print("\nПосле сортировки (по алфавиту):")
+        group.print_list()
 
-        elif choice == "2":
-            group = SinglyLinkedList()
-            for data in students_data:
-                group.append(StudentNode(*data))
-            print("\nДо сортировки:")
-            group.print_list()
-            group.selection_sort_by_last_name_desc()
-            print("\nПосле сортировки (в обратном алфавитном порядке):")
-            group.print_list()
+    elif choice == "2":
+        group = SinglyLinkedList()
+        for data in students_data:
+            group.append(StudentNode(*data))
+        print("\nДо сортировки:")
+        group.print_list()
+        group.selection_sort_by_last_name_desc()
+        print("\nПосле сортировки (в обратном алфавитном порядке):")
+        group.print_list()
 
-        elif choice == "3":
-            tree = BinaryTree()
-            for data in students_data:
-                tree.insert(StudentNode(*data))
-            print("\nСтуденты по старшинству (от старшего):")
-            tree.print_sorted_by_age()
+    elif choice == "3":
+        tree = BinaryTree()
+        for data in students_data:
+            tree.insert(StudentNode(*data))
+        print("\nСтуденты по старшинству (от старшего):")
+        tree.print_sorted_by_age()
 
-        elif choice == "4":
-            tree = BinaryTree()
-            for data in students_data:
-                tree.insert(StudentNode(*data))
-            print("\nСтуденты по старшинству (от младшего):")
-            tree.print_sorted_by_age_asc()
+    elif choice == "4":
+        tree = BinaryTree()
+        for data in students_data:
+            tree.insert(StudentNode(*data))
+        print("\nСтуденты по старшинству (от младшего):")
+        tree.print_sorted_by_age_asc()
 
-        elif choice == "5":
-            graph = Graph()
-            for data in students_data:
-                graph.add_student(StudentNode(*data))
-            print("\nСтуденты по общему баллу (по возрастанию):")
-            graph.print_sorted_by_score()
+    elif choice == "5":
+        graph = Graph()
+        for data in students_data:
+            graph.add_student(StudentNode(*data))
+        print("\nСтуденты по общему баллу (по возрастанию):")
+        graph.print_sorted_by_score()
 
-        elif choice == "6":
-            graph = Graph()
-            for data in students_data:
-                graph.add_student(StudentNode(*data))
-            print("\nСтуденты по общему баллу (по убыванию):")
-            graph.print_sorted_by_score_desc()
+    elif choice == "6":
+        graph = Graph()
+        for data in students_data:
+            graph.add_student(StudentNode(*data))
+        print("\nСтуденты по общему баллу (по убыванию):")
+        graph.print_sorted_by_score_desc()
 
-        elif choice == "7":
-            hash_table = HashTable()
-            for data in students_data:
-                hash_table.add_student(StudentNode(*data))
+    elif choice == "7":
+        hash_table = HashTable()
+        for data in students_data:
+            hash_table.add_student(StudentNode(*data))
 
-            print("\nСтуденты по результатам первого экзамена (по возрастанию):")
-            hash_table.print_sorted_by_first_exam_asc()
+        print("\nСтуденты по результатам первого экзамена (по возрастанию):")
+        hash_table.print_sorted_by_first_exam_asc()
 
-        elif choice == "8":
-            hash_table = HashTable()
-            for data in students_data:
-                hash_table.add_student(StudentNode(*data))
+    elif choice == "8":
+        hash_table = HashTable()
+        for data in students_data:
+            hash_table.add_student(StudentNode(*data))
 
-            print("\nСтуденты по результатам второго экзамена (по убыванию):")
-            hash_table.print_sorted_by_second_exam_desc()
+        print("\nСтуденты по результатам второго экзамена (по убыванию):")
+        hash_table.print_sorted_by_second_exam_desc()
 
-        elif choice == "9":
-            hash_table = HashTable()
-            for data in students_data:
-                hash_table.add_student(StudentNode(*data))
+    elif choice == "9":
+        hash_table = HashTable()
+        for data in students_data:
+            hash_table.add_student(StudentNode(*data))
 
-            print("\nСтуденты по результатам третьего экзамена (по возрастанию):")
-            hash_table.print_sorted_by_third_exam_asc()
+        print("\nСтуденты по результатам третьего экзамена (по возрастанию):")
+        hash_table.print_sorted_by_third_exam_asc()
 
-        elif choice == "10":
-            hash_table = HashTable()
-            for data in students_data:
-                hash_table.add_student(StudentNode(*data))
+    elif choice == "10":
+        hash_table = HashTable()
+        for data in students_data:
+            hash_table.add_student(StudentNode(*data))
 
-            print("\nСтуденты по результатам четвёртого экзамена (по убыванию):")
-            hash_table.print_sorted_by_fourth_exam_desc()
+        print("\nСтуденты по результатам четвёртого экзамена (по убыванию):")
+        hash_table.print_sorted_by_fourth_exam_desc()
 
-        elif choice == "0":
-            print("Выход из программы.")
-            break
+    elif choice == "0":
+        print("Выход из программы.")
+        break
 
-        else:
-            print("Неверный выбор. Попробуйте снова.")
-
-main()
+    else:
+        print("Неверный выбор. Попробуйте снова.")
