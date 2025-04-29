@@ -11,7 +11,6 @@ class Node:
         self.repair_count = repair_count
         self.next = None
 
-
 class TreeNode:
     def __init__(self, key):
         self.key = key
@@ -110,7 +109,6 @@ class CircularCarList:
             current = current.next
             if current == self.head:
                 break
-
 
 class CarTree:
     def __init__(self):
@@ -223,7 +221,6 @@ class HashTable:
                 if car.brand.lower() == brand.lower():
                     cars.append(car)
         return cars
-    
 
     def display_sorted(self, brand):
         cars = self.get(brand)
@@ -242,12 +239,6 @@ class HashTable:
                     owners.add(car.owner)
 
         return sorted(owners)
-
-    def display_sorted(self, brand):
-        cars = self.get(brand)
-        cars.sort(key=lambda car: car.number)
-        for car in cars:
-            print_car_info(car)
 
     def get_cars_to_be_repaired_next_month(self):
         current_date = datetime.now().date()
@@ -296,14 +287,14 @@ def print_car_info(car):
 example_data = [
     ("А123ВС", "Toyota", "Иванов", "01.05.2024", "15.05.2024", 0),
     ("B456DE", "Honda", "Петров", "12.06.2024", "25.06.2024", 2),
-    ("C789FG", "Жигули", "Алексеев", "10.04.2024", "20.04.2024", 5),
-    ("D321GH", "Mazda", "Сидоров", "05.03.2024", "10.03.2024", 0),
-    ("E654IJ", "Жигули", "Фёдоров", "12.02.2024", "22.02.2024", 3),
+    ("C789FG", "Жигули", "Кузнецов", "10.04.2024", "20.04.2024", 5),
+    ("D321GH", "Mazda", "Букин", "05.03.2024", "10.03.2024", 0),
+    ("E654IJ", "Жигули", "Титов", "12.02.2024", "22.02.2024", 3),
     ("F789KL", "Жигули", "Козлов", "02.01.2024", "10.01.2024", 5),
-    ("M111MM", "Жигули", "Миронов", "01.02.2024", "10.02.2024", 2),
+    ("M111MM", "Жигули", "Рогов", "01.02.2024", "10.02.2024", 2),
     ("X777XX", "BMW", "Новиков", "01.01.2024", "05.01.2024", 0),
-    ("G555GG", "Мерседес", "Климова", "15.03.2024", "25.03.2024", 1),
-    ("H888HH", "Мерседес", "Захаров", "20.03.2024", "30.03.2024", 2)
+    ("G555GG", "Мерседес", "Булычёв", "16.03.2024", "21.03.2024", 1),
+    ("H888HH", "Мерседес", "Актимиров", "20.03.2024", "30.03.2024", 2)
 ]
 
 linear_list = CarList()
@@ -331,7 +322,9 @@ for number, brand, owner, last_str, due_str, repairs in example_data:
     car = Node(number, brand, owner, last_date, due_date, repairs)
     hash_table.insert(car)
 
-while True:
+ch = None
+
+while ch != 0:
     print("\nЛабораторная работа №7 - машины:")
     print("0) Выход")
     print("1) Сортировка по имени владельца (односвязный список)")
@@ -344,49 +337,49 @@ while True:
     print("8) Вывести по возрастанию номера машин марки 'Жигули' (хэш-таблица)")
     print("9) Вывести имена владельцев, чьи машины не ремонтировались с прошлого года (хэш-таблица)")
     print("10) Вывести машины, которые надо отремонтировать к следующему месяцу по возрастанию даты последнего ремонта (хэш-таблица)")
-    choice = input("Выберите пункт меню: ")
+    ch = int(input("Выберите пункт меню: "))
 
-    if choice == '1':
+    if ch == 1:
         print("\n[1] Сортировка по имени владельца:\n")
         linear_list.sort_by_owner()
         linear_list.display()
 
-    elif choice == '2':
+    elif ch == 2:
         print("\n[2] Порядок ремонта по сроку:\n")
         circular_list.sort_by_due_date()
         circular_list.display()
 
-    elif choice == '3':
+    elif ch == 3:
         print("\n[3] Жигули по убыванию количества ремонтов:\n")
         car_tree.display_descending()
 
-    elif choice == '4':
+    elif ch == 4:
         print("\n[4] Машины с 2 ремонтами по убыванию номера:\n")
         number_tree.display_descending()
 
-    elif choice == '5':
+    elif ch == 5:
         print("\n[5] Машины с 0 ремонтами по возрастанию даты окончания ремонта:\n")
         repair_graph.display_sorted_by_due_date()
 
-    elif choice == '6':
+    elif ch == 6:
         print("\n[6] Владельцы машин марки 'Мерседес' по алфавиту в обратном порядке:\n")
         repair_graph.display_mercedes_owners_reverse()
 
-    elif choice == '7':
+    elif ch == 7:
         print("\n[7] Марки машин, которые должны быть отремонтированы раньше всех:\n")
         repair_graph.display_brands_to_be_repaired_earlier()
 
-    elif choice == '8':
+    elif ch == 8:
         print("\n[8] Вывод по возрастанию номеров машин марки 'Жигули':\n")
         hash_table.display_sorted("Жигули")
 
-    elif choice == '9':
+    elif ch == 9:
         print("\n[9] Вывод имён владельцев, чьи машины не ремонтировались с прошлого года:\n")
         owners = hash_table.get_owners_without_repair_since_last_year()
         for owner in owners:
             print(owner)
 
-    elif choice == '10':
+    elif ch == 10:
         print("\n[10] Вывод машин, которые надо отремонтировать к следующему месяцу по возрастанию даты последнего ремонта:\n")
         cars_to_repair = hash_table.get_cars_to_be_repaired_next_month()
         if not cars_to_repair:
@@ -394,9 +387,8 @@ while True:
         for car in cars_to_repair:
             print_car_info(car)
 
-    elif choice == '0':
+    elif ch == 0:
         print("Выход из программы.")
-        break
 
     else:
         print("Неверный выбор. Попробуйте снова.")
