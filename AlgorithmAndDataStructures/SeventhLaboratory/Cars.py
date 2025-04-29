@@ -1,8 +1,6 @@
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-# === КЛАСС ДЛЯ МАШИН ===
-
 class Node:
     def __init__(self, number, brand, owner, last_repair_date, due_date, repair_count):
         self.number = number
@@ -21,9 +19,6 @@ class TreeNode:
         self.left = None
         self.right = None
 
-
-# === ОДНОСВЯЗНЫЙ СПИСОК ===
-
 class CarList:
     def __init__(self):
         self.head = None
@@ -37,17 +32,16 @@ class CarList:
                 current = current.next
             current.next = car
 
-    # СОРТИРОВКА ВЫБОРОМ #
 
     def sort_by_owner(self):
         if not self.head or not self.head.next:
             return
 
-        sorted_head = None  # Начинаем с пустого отсортированного списка
+        sorted_head = None 
 
         current = self.head
         while current:
-            next_node = current.next  # Сохраняем ссылку на следующий элемент
+            next_node = current.next
             sorted_head = self._insert_sorted_by_owner(sorted_head, current)
             current = next_node
 
@@ -68,14 +62,11 @@ class CarList:
 
         return head
 
-        def display(self):
-            current = self.head
-            while current:
-                print_car_info(current)
-                current = current.next
-
-
-# === КОЛЬЦЕВОЙ СПИСОК ===
+    def display(self):
+        current = self.head
+        while current:
+            print_car_info(current)
+            current = current.next
 
 class CircularCarList:
     def __init__(self):
@@ -122,8 +113,6 @@ class CircularCarList:
                 break
 
 
-# === ДЕРЕВО ДЛЯ "ЖИГУЛИ" ===
-
 class CarTree:
     def __init__(self):
         self.root = None
@@ -158,9 +147,6 @@ class CarTree:
             print_car_info(car)
         self._reverse_inorder(node.left)
 
-
-# === ДЕРЕВО ПО НОМЕРАМ ===
-
 class NumberTree:
     def __init__(self):
         self.root = None
@@ -194,9 +180,6 @@ class NumberTree:
             print_car_info(car)
         self._reverse_inorder(node.right)
 
-
-# === ГРАФ ДЛЯ МАШИН ===
-
 class RepairGraph:
     def __init__(self):
         self.nodes = []
@@ -210,29 +193,17 @@ class RepairGraph:
             print_car_info(car)
 
     def display_mercedes_owners_reverse(self):
-        # Собираем владельцев машин марки "Мерседес"
         mercedes_owners = [car.owner for car in self.nodes if car.brand.lower() == "мерседес"]
-        # Сортируем по алфавиту в обратном порядке
         mercedes_owners.sort(reverse=True)
-        # Выводим владельцев в обратном порядке
         for owner in mercedes_owners:
             print(owner)
 
     def display_brands_to_be_repaired_earlier(self):
-        # Дата, до которой машины должны быть отремонтированы
         repair_cutoff_date = datetime.strptime("12.06.2024", "%d.%m.%Y").date()
-
-        # Собираем марки машин, которые должны быть отремонтированы раньше этой даты
         brands = {car.brand.lower() for car in self.nodes if car.due_date < repair_cutoff_date}
-        
-        # Сортируем марки по алфавиту
         sorted_brands = sorted(brands)
-
-        # Выводим отсортированные марки
         for brand in sorted_brands:
             print(brand.capitalize())
-
-# === ХЭЩ-ТАБЛИЦА ===
 
 class HashTable:
     def __init__(self, size=100):
@@ -240,16 +211,13 @@ class HashTable:
         self.table = [[] for _ in range(size)]
 
     def _hash(self, key):
-        # Простейшая хеш-функция (сумма символов номера машины) % размера таблицы
         return sum(ord(c) for c in key) % self.size
 
     def insert(self, car):
-        # Вставляем машину в таблицу по хешу её номера
         index = self._hash(car.number)
         self.table[index].append(car)
 
     def get(self, brand):
-        # Получаем все машины определённой марки
         cars = []
         for bucket in self.table:
             for car in bucket:
@@ -259,44 +227,31 @@ class HashTable:
 
     def display_sorted(self, brand):
         cars = self.get(brand)
-        cars.sort(key=lambda car: car.number)  # Сортируем по номеру машины
+        cars.sort(key=lambda car: car.number)
         for car in cars:
             print_car_info(car)
 
     def get_cars_to_be_repaired_next_month(self):
-        # Получаем текущую дату
         current_date = datetime.now().date()
-        # Определяем первый день следующего месяца
         next_month = (current_date.replace(day=28) + timedelta(days=4)).replace(day=1)
-        # Определяем последний день следующего месяца
         next_month_last_day = (next_month.replace(day=28) + timedelta(days=4)).replace(day=1) - timedelta(days=1)
 
         cars_to_repair = []
 
-        # Перебираем все машины и проверяем дату ремонта
         for bucket in self.table:
             for car in bucket:
-                # Если дата ремонта машины находится в следующем месяце
                 if next_month <= car.due_date <= next_month_last_day:
                     cars_to_repair.append(car)
 
-        # Сортируем машины по дате их последнего ремонта
         cars_to_repair.sort(key=lambda car: car.last_repair_date)
 
         return cars_to_repair
-
-
-
-# === ВСПОМОГАЮЩИЕ ФУНКЦИИ ===
 
 def print_car_info(car):
     print(f'Номер: {car.number}, Марка: {car.brand}, Владелец: {car.owner}')
     print(f'Последний ремонт: {car.last_repair_date.strftime("%d.%m.%Y")}')
     print(f'Срок ремонта до: {car.due_date.strftime("%d.%m.%Y")}')
     print(f'Количество предыдущих ремонтов: {car.repair_count}\n')
-
-
-# === ДАННЫЕ ===
 
 example_data = [
     ("А123ВС", "Toyota", "Иванов", "01.05.2024", "15.05.2024", 0),
@@ -310,8 +265,6 @@ example_data = [
     ("G555GG", "Мерседес", "Климова", "15.03.2024", "25.03.2024", 1),
     ("H888HH", "Мерседес", "Захаров", "20.03.2024", "30.03.2024", 2)
 ]
-
-# === СТРУКТУРЫ ===
 
 linear_list = CarList()
 circular_list = CircularCarList()
@@ -328,9 +281,6 @@ for number, brand, owner, last_str, due_str, repairs in example_data:
     car_tree.insert(Node(number, brand, owner, last_date, due_date, repairs))
     number_tree.insert(Node(number, brand, owner, last_date, due_date, repairs))
     repair_graph.add_car(Node(number, brand, owner, last_date, due_date, repairs))
-
-
-# === ХЭШ-ТАБЛИЦА ===
 
 class HashTable:
     def __init__(self, size=100):
@@ -373,11 +323,9 @@ class HashTable:
     def get_cars_to_be_repaired_next_month(self):
         current_date = datetime.now().date()
         
-        # Рассчитываем первый и последний день следующего месяца
-        next_month = current_date.replace(day=28) + timedelta(days=4)  # Переходим на следующий месяц
+        next_month = current_date.replace(day=28) + timedelta(days=4)
         next_month_first_day = next_month.replace(day=1)
         
-        # Определяем последний день следующего месяца
         next_month_last_day = (next_month_first_day.replace(day=28) + timedelta(days=4)).replace(day=1) - timedelta(days=1)
 
         print(f"Следующий месяц: с {next_month_first_day} по {next_month_last_day}")
@@ -386,24 +334,16 @@ class HashTable:
 
         for bucket in self.table:
             for car in bucket:
-                # Если дата окончания ремонта попадает в следующий месяц
                 if next_month_first_day <= car.due_date <= next_month_last_day:
                     cars_to_repair.append(car)
 
-        # Сортируем машины по дате последнего ремонта
         cars_to_repair.sort(key=lambda car: car.last_repair_date)
 
         return cars_to_repair
 
-
-
-
-# === МЕНЮ ===
-
 def menu():
     hash_table = HashTable()
 
-    # Вставляем все машины в хэш-таблицу
     for number, brand, owner, last_str, due_str, repairs in example_data:
         last_date = datetime.strptime(last_str, "%d.%m.%Y").date()
         due_date = datetime.strptime(due_str, "%d.%m.%Y").date()
@@ -480,6 +420,4 @@ def menu():
         else:
             print("Неверный выбор. Попробуйте снова.")
 
-
-# ВЫЗОВ МЕНЮ
 menu()

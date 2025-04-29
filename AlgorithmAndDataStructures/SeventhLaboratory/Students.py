@@ -7,8 +7,6 @@ class StudentNode:
         self.total_score = total_score
         self.next = None
 
-
-# --- Кольцевой список ---
 class CircularLinkedList:
     def __init__(self):
         self.head = None
@@ -61,8 +59,6 @@ class CircularLinkedList:
         a.grades, b.grades = b.grades, a.grades
         a.total_score, b.total_score = b.total_score, a.total_score
 
-
-# --- Односвязный список ---
 class SinglyLinkedList:
     def __init__(self):
         self.head = None
@@ -107,16 +103,12 @@ class SinglyLinkedList:
         a.grades, b.grades = b.grades, a.grades
         a.total_score, b.total_score = b.total_score, a.total_score
 
-
-# --- Узел бинарного дерева ---
 class TreeNode:
     def __init__(self, student):
         self.student = student
         self.left = None
         self.right = None
 
-
-# --- Бинарное дерево по старшинству ---
 class BinaryTree:
     def __init__(self):
         self.root = None
@@ -184,7 +176,6 @@ class BinaryTree:
         for s in sorted_students:
             print(f"{s.last_name} {s.first_name}, {s.birth_year}, Балл: {s.total_score}")
 
-# --- Граф ---
 class Graph:
     def __init__(self):
         self.students = []
@@ -230,8 +221,6 @@ class Graph:
         for student in self.students:
             print(f"{student.last_name} {student.first_name}, {student.birth_year}, Балл: {student.total_score}")
 
-# --- Хэш-Таблицы ---
-
 class HashTable:
     def __init__(self):
         self.table = {}
@@ -248,7 +237,6 @@ class HashTable:
         if not students:
             return []
 
-        # Первый экзамен берем из первого студента
         first_exam = list(students[0].grades.keys())[0]
 
         n = len(students)
@@ -270,9 +258,9 @@ class HashTable:
     def selection_sort_by_second_exam_desc(self):
         students = list(self.table.values())
         if not students or len(students[0].grades) < 2:
-            return [], None  # недостаточно экзаменов
+            return [], None
 
-        second_exam = list(students[0].grades.keys())[1]  # второй экзамен по порядку
+        second_exam = list(students[0].grades.keys())[1]
 
         n = len(students)
         for i in range(n):
@@ -296,9 +284,9 @@ class HashTable:
     def selection_sort_by_third_exam_asc(self):
         students = list(self.table.values())
         if not students or len(students[0].grades) < 3:
-            return [], None  # Недостаточно экзаменов
+            return [], None
 
-        third_exam = list(students[0].grades.keys())[2]  # третий экзамен по порядку
+        third_exam = list(students[0].grades.keys())[2]
 
         n = len(students)
         for i in range(n):
@@ -322,9 +310,9 @@ class HashTable:
     def selection_sort_by_fourth_exam_desc(self):
         students = list(self.table.values())
         if not students or len(students[0].grades) < 4:
-            return [], None  # Недостаточно экзаменов
+            return [], None
 
-        fourth_exam = list(students[0].grades.keys())[3]  # четвёртый экзамен по порядку
+        fourth_exam = list(students[0].grades.keys())[3]
 
         n = len(students)
         for i in range(n):
@@ -345,7 +333,6 @@ class HashTable:
             print(f"{student.last_name} {student.first_name}, {student.birth_year}, "
                 f"Баллы: {student.total_score}, {fourth_exam}: {student.grades.get(fourth_exam, 0)}")
             
-# --- Общие данные студентов ---
 students_data = [
     ("Иванов", "Иван", 2003, {"СиАД": 5, "Матеша": 4, "Физика": 5, "Прога": 4}, 18),
     ("Петров", "Алексей", 2002, {"СиАД": 4, "Матеша": 4, "Физика": 3, "Прога": 5}, 16),
@@ -353,8 +340,6 @@ students_data = [
     ("Алексеев", "Михаил", 2001, {"СиАД": 3, "Матеша": 4, "Физика": 4, "Прога": 4}, 15)
 ]
 
-
-# --- Главное меню ---
 def main():
     while True:
         print("\nМеню сортировки:")
