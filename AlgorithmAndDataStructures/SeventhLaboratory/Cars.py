@@ -302,6 +302,7 @@ circular_list = CircularCarList()
 car_tree = CarTree()
 number_tree = NumberTree()
 repair_graph = RepairGraph()
+hash_table = HashTable()
 
 for number, brand, owner, last_str, due_str, repairs in example_data:
     last_date = datetime.strptime(last_str, "%d.%m.%Y").date()
@@ -312,9 +313,6 @@ for number, brand, owner, last_str, due_str, repairs in example_data:
     car_tree.insert(Node(number, brand, owner, last_date, due_date, repairs))
     number_tree.insert(Node(number, brand, owner, last_date, due_date, repairs))
     repair_graph.add_car(Node(number, brand, owner, last_date, due_date, repairs))
-    
-
-hash_table = HashTable()
 
 for number, brand, owner, last_str, due_str, repairs in example_data:
     last_date = datetime.strptime(last_str, "%d.%m.%Y").date()
